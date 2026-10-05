@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -12,9 +12,12 @@ import {
   ApexTooltip,
   ApexYAxis,
   ApexLegend,
-  NgApexchartsModule
-} from 'ng-apexcharts';
+  NgApexchartsModule, ChartComponent } from 'ng-apexcharts';
 
+
+import { CHART_FONT, CHART_LABEL_DARK, CHART_LABEL_LIGHT, chartSeries, isRtl } from '../../chart-theme';
+import { Subscription } from 'rxjs';
+import { ThemeService } from '../../../../services/theme.service';
 
 @Component({
   selector: 'app-line-chart-one',
@@ -24,7 +27,7 @@ import {
   templateUrl: './line-chart-one.component.html',
   styles: ``
 })
-export class LineChartOneComponent {
+export class LineChartOneComponent implements OnInit, OnDestroy {
 
   public series: ApexAxisChartSeries = [
     {
@@ -38,7 +41,7 @@ export class LineChartOneComponent {
   ];
 
   public chart: ApexChart = {
-    fontFamily: 'Outfit, sans-serif',
+    fontFamily: CHART_FONT,
     height: 310,
     type: 'area',
     toolbar: {
@@ -46,7 +49,8 @@ export class LineChartOneComponent {
     }
   };
 
-  public colors: string[] = ['#465FFF', '#9CB9FF'];
+  // Categorical order per Desing.md §8: Authority green, then gold.
+  public colors: string[] = chartSeries().slice(0, 2);
 
   public stroke: ApexStroke = {
     curve: 'straight',
@@ -63,7 +67,7 @@ export class LineChartOneComponent {
 
   public markers: ApexMarkers = {
     size: 0,
-    strokeColors: '#fff',
+    strokeColors: '#ffffff',
     strokeWidth: 2,
     hover: {
       size: 6
@@ -115,7 +119,7 @@ export class LineChartOneComponent {
     labels: {
       style: {
         fontSize: '12px',
-        colors: ['#6B7280']
+        colors: [CHART_LABEL_LIGHT]
       }
     },
     title: {
@@ -126,9 +130,52 @@ export class LineChartOneComponent {
     }
   };
 
+  // Charts do not inherit `dir`; the legend side is set explicitly.
   public legend: ApexLegend = {
     show: false,
     position: 'top',
-    horizontalAlign: 'left'
+    horizontalAlign: isRtl() ? 'right' : 'left'
   };
+
+  @ViewChild(ChartComponent) private chartRef?: ChartComponent;
+
+  private themeSub?: Subscription;
+
+  constructor(private themeService: ThemeService) {}
+
+  ngOnInit(): void {
+    // Charts hold plain colour arrays, so they have to be told when the theme
+    // flips — they do not re-read CSS variables on their own.
+    this.themeSub = this.themeService.theme$.subscribe((theme) =>
+      this.applyTheme(theme === 'dark'),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.themeSub?.unsubscribe();
+  }
+
+  private applyTheme(dark: boolean): void {
+    this.colors = chartSeries(dark).slice(0, 2);
+    this.yaxis = {
+      ...this.yaxis,
+      labels: {
+        style: {
+          fontSize: '12px',
+          colors: [dark ? CHART_LABEL_DARK : CHART_LABEL_LIGHT],
+        },
+      },
+    };
+    this.pushOptions({ colors: this.colors, yaxis: this.yaxis });
+  }
+
+  /**
+   * The chart is already built by the time the theme flips, and re-binding the
+   * option inputs does not reliably trigger a re-create, so the new options go
+   * through ApexCharts' own `updateOptions` instead. Before the view exists,
+   * the field assignments above are what the first render picks up.
+   */
+  private pushOptions(options: Record<string, unknown>): void {
+    this.chartRef?.updateOptions(options, false, false);
+  }
 }

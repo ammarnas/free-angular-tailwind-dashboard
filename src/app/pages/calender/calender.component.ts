@@ -125,8 +125,8 @@ export class CalenderComponent implements OnInit {
         end: ''
       },
       headerToolbarClass:
-        'sticky top-0! z-20! bg-white dark:bg-gray-900 flex-wrap! flex-row! items-center justify-between gap-3 sm:gap-4 [padding-inline:16px]! sm:[padding-inline:24px]! pt-4 sm:pt-6 pb-3 sm:pb-4',
-      toolbarTitleClass: 'text-base! sm:text-lg! font-semibold! text-gray-800 dark:text-white/90',
+        'sticky top-0! z-20! bg-white dark:bg-gray-950 flex-wrap! flex-row! items-center justify-between gap-3 sm:gap-4 [padding-inline:16px]! sm:[padding-inline:24px]! pt-4 sm:pt-6 pb-3 sm:pb-4',
+      toolbarTitleClass: 'text-base! sm:text-lg! font-bold! text-gray-950 dark:text-gray-100',
       toolbarSectionClass: (info: any) => {
         if (info.name === 'start') {
           return 'ta-toolbar-section ta-toolbar-start order-2 flex w-full items-center justify-between sm:order-1 sm:w-auto sm:justify-start gap-2';
@@ -147,20 +147,20 @@ export class CalenderComponent implements OnInit {
             html: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="size-5 sm:size-6 bg-transparent text-gray-700 rtl:rotate-180 dark:text-gray-400"><path d="M15 18l-6-6 6-6" /></svg>`,
           },
           className:
-            'flex size-9! sm:size-10! p-0! items-center justify-center! rounded-lg! border! bg-transparent! border-gray-200! text-gray-700 hover:border-gray-200 hover:bg-gray-50! focus:shadow-none active:border-gray-200! active:bg-transparent! active:shadow-none! dark:border-gray-800! dark:text-gray-400 dark:hover:border-gray-800 dark:hover:bg-gray-900! dark:active:border-gray-800!',
+            'flex size-9! sm:size-10! p-0! items-center justify-center! rounded-lg! border! bg-transparent! border-gray-300! text-gray-700 hover:border-gray-300 hover:bg-gray-50! focus:shadow-none active:border-gray-300! active:bg-transparent! active:shadow-none! dark:border-white/10! dark:text-gray-400 dark:hover:border-white/10 dark:hover:bg-gray-950! dark:active:border-white/10!',
         },
         next: {
           iconContent: {
             html: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="size-5 sm:size-6 bg-transparent text-gray-700 rtl:rotate-180 dark:text-gray-400"><path d="M9 18l6-6-6-6" /></svg>`,
           },
           className:
-            'flex size-9! sm:size-10! p-0! items-center justify-center! rounded-lg! border! bg-transparent! border-gray-200! text-gray-700 hover:border-gray-200 hover:bg-gray-50! focus:shadow-none active:border-gray-200! active:bg-transparent! active:shadow-none! dark:border-gray-800! dark:text-gray-400 dark:hover:border-gray-800 dark:hover:bg-gray-900! dark:active:border-gray-800!',
+            'flex size-9! sm:size-10! p-0! items-center justify-center! rounded-lg! border! bg-transparent! border-gray-300! text-gray-700 hover:border-gray-300 hover:bg-gray-50! focus:shadow-none active:border-gray-300! active:bg-transparent! active:shadow-none! dark:border-white/10! dark:text-gray-400 dark:hover:border-white/10 dark:hover:bg-gray-950! dark:active:border-white/10!',
         },
         addEventButton: {
           text: 'Add Event +',
           click: () => this.handleOpenAddModal(),
           className:
-            'rounded-lg! border-0! bg-brand-500! px-3! sm:px-4! py-2! sm:py-2.5! text-xs! sm:text-sm! font-medium! text-white hover:bg-brand-600! focus:shadow-none! w-auto!',
+            'rounded-lg! border-0! bg-brand-700 dark:bg-gold-400 dark:hover:bg-gold-300 dark:text-brand-900! px-3! sm:px-4! py-2! sm:py-2.5! text-xs! sm:text-sm! font-medium! text-white hover:bg-brand-800! focus:shadow-none! w-auto!',
         },
       },
 
@@ -170,31 +170,31 @@ export class CalenderComponent implements OnInit {
           multiMonthMaxColumns: 3,
           singleMonthClass: 'fc-multimonth',
           tableClass:
-            'overflow-visible! border-0! sm:border! sm:border-gray-200! dark:sm:border-gray-800! rounded-none! sm:rounded-lg! mt-0!',
+            'overflow-visible! border-0! sm:border! sm:border-gray-300! dark:sm:border-white/10! rounded-none! sm:rounded-lg! mt-0!',
           singleMonthHeaderClass:
-            'mb-0! bg-white dark:bg-gray-900 sm:bg-transparent! dark:sm:bg-transparent!',
+            'mb-0! bg-white dark:bg-gray-950 sm:bg-transparent! dark:sm:bg-transparent!',
           tableHeaderClass:
-            'mb-0! rounded-none! sm:rounded-t-lg! bg-gray-50 dark:bg-gray-900 dark:sm:bg-transparent!',
+            'mb-0! rounded-none! sm:rounded-t-lg! bg-gray-50 dark:bg-gray-950 dark:sm:bg-transparent!',
           tableBodyClass: 'mt-0!',
           singleMonthMinWidth: 280,
           showNonCurrentDates: true,
           singleMonthHeaderInnerClass:
-            'text-sm font-medium! text-gray-800 dark:text-white/90',
+            'text-sm font-medium! text-gray-950 dark:text-gray-100',
           dayHeaderRowClass: 'fc-multimonth-day-header-row',
           dayHeaderClass: (data: any) =>
             data.inPopover
-              ? 'relative! border-b! border-gray-200! bg-gray-50/70! px-4! py-3! text-start! dark:border-gray-800! dark:bg-gray-800/50!'
-              : 'border-0! bg-gray-50 py-2! dark:bg-gray-900 dark:sm:bg-transparent! first:rounded-none! first:sm:rounded-ss-lg! last:rounded-none! last:sm:rounded-se-lg!',
+              ? 'relative! border-b! border-gray-300! bg-gray-50/70! px-4! py-3! text-start! dark:border-white/10! dark:bg-gray-800/50!'
+              : 'border-0! bg-gray-50 py-2! dark:bg-gray-950 dark:sm:bg-transparent! first:rounded-none! first:sm:rounded-ss-lg! last:rounded-none! last:sm:rounded-se-lg!',
           dayHeaderInnerClass: (data: any) =>
             data.inPopover
-              ? 'text-sm! font-semibold! text-gray-800! dark:text-white/90!'
-              : 'py-1 text-[11px] sm:text-xs font-medium text-gray-400 uppercase',
+              ? 'text-sm! font-bold! text-gray-950! dark:text-gray-100!'
+              : 'py-1 text-[11px] sm:text-xs font-medium text-gray-700 uppercase',
           dayCellClass: (data: any) => {
             if (data.inPopover) return 'bg-transparent! p-3!';
             let cls = 'relative! p-0.5 sm:p-1!';
             if (data.isToday)
               cls +=
-                ' isolate rounded-sm! bg-gray-100! dark:bg-gray-800/40! font-semibold text-brand-500 dark:text-brand-400';
+                ' isolate rounded-sm! bg-gray-100! dark:bg-gray-800/40! font-bold text-brand-700 dark:text-gold-400';
             if (data.isOther) cls += ' bg-transparent!';
             return cls;
           },
@@ -211,7 +211,7 @@ export class CalenderComponent implements OnInit {
           rowMoreLinkInnerClass: 'overflow-visible!',
           moreLinkContent() {
             return {
-              html: `<span><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4.5 sm:size-5.5 text-brand-500"><path d="M19 3v17a1 1 0 01-1.496.868l-4.512-2.578a2 2 0 00-1.984 0l-4.512 2.578A1 1 0 015 20V3z" /></svg></span>`,
+              html: `<span><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4.5 sm:size-5.5 text-brand-700"><path d="M19 3v17a1 1 0 01-1.496.868l-4.512-2.578a2 2 0 00-1.984 0l-4.512 2.578A1 1 0 015 20V3z" /></svg></span>`,
             };
           },
         },
@@ -220,12 +220,12 @@ export class CalenderComponent implements OnInit {
           dayHeaderAlign: (data: any) => (data.inPopover ? 'start' : 'center'),
           dayHeaderClass: (data: any) =>
             data.inPopover
-              ? 'relative! border-b! border-gray-200! bg-gray-50/70! px-4! py-3! text-start! dark:border-gray-800! dark:bg-gray-800/50!'
-              : 'border-x-0! border-t border-gray-200! bg-gray-50 dark:border-gray-800! dark:bg-gray-900',
+              ? 'relative! border-b! border-gray-300! bg-gray-50/70! px-4! py-3! text-start! dark:border-white/10! dark:bg-gray-800/50!'
+              : 'border-x-0! border-t border-gray-300! bg-gray-50 dark:border-white/10! dark:bg-gray-950',
           dayHeaderInnerClass: (data: any) =>
             data.inPopover
-              ? 'text-sm! font-semibold! text-gray-800! dark:text-white/90!'
-              : 'px-1! py-2! sm:px-3! sm:py-3! md:px-5! md:py-4! text-xs! sm:text-sm! font-medium! text-gray-400 uppercase',
+              ? 'text-sm! font-bold! text-gray-950! dark:text-gray-100!'
+              : 'px-1! py-2! sm:px-3! sm:py-3! md:px-5! md:py-4! text-xs! sm:text-sm! font-medium! text-gray-700 uppercase',
           dayCellClass: (data: any) => {
             if (data.inPopover) return 'bg-transparent! p-3!';
             return `bg-transparent! p-1! sm:p-2! ${
@@ -248,11 +248,11 @@ export class CalenderComponent implements OnInit {
           moreLinkContent: (args: any) => {
             if (this.isMobile) {
               return {
-                html: `<span><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4.5 sm:size-5.5 text-brand-500"><path d="M19 3v17a1 1 0 01-1.496.868l-4.512-2.578a2 2 0 00-1.984 0l-4.512 2.578A1 1 0 015 20V3z" /></svg></span>`,
+                html: `<span><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4.5 sm:size-5.5 text-brand-700"><path d="M19 3v17a1 1 0 01-1.496.868l-4.512-2.578a2 2 0 00-1.984 0l-4.512 2.578A1 1 0 015 20V3z" /></svg></span>`,
               };
             }
             return {
-              html: `<span class="fc-more-link-badge inline-flex items-center rounded-sm bg-brand-50 px-1 py-0.5 sm:px-1.5 text-[10px] sm:text-xs font-medium text-brand-600 transition-colors hover:bg-brand-100 dark:bg-brand-500/15 dark:text-brand-400 dark:hover:bg-brand-500/25">+${args.num} more</span>`,
+              html: `<span class="fc-more-link-badge inline-flex items-center rounded-sm bg-brand-50 px-1 py-0.5 sm:px-1.5 text-[10px] sm:text-xs font-medium text-brand-700 transition-colors hover:bg-brand-100 dark:bg-brand-500/15 dark:text-gold-400 dark:hover:bg-brand-500/25">+${args.num} more</span>`,
             };
           },
         },
@@ -269,7 +269,7 @@ export class CalenderComponent implements OnInit {
           rowMoreLinkInnerClass: this.isMobile ? 'overflow-visible!' : '',
           moreLinkContent: this.isMobile
             ? () => ({
-                html: `<span><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4.5 sm:size-5.5 text-brand-500"><path d="M19 3v17a1 1 0 01-1.496.868l-4.512-2.578a2 2 0 00-1.984 0l-4.512 2.578A1 1 0 015 20V3z" /></svg></span>`,
+                html: `<span><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4.5 sm:size-5.5 text-brand-700"><path d="M19 3v17a1 1 0 01-1.496.868l-4.512-2.578a2 2 0 00-1.984 0l-4.512 2.578A1 1 0 015 20V3z" /></svg></span>`,
               })
             : undefined,
           dayHeaderContent: (arg: any) => {
@@ -284,30 +284,30 @@ export class CalenderComponent implements OnInit {
             return `${weekday} - ${day}`;
           },
           dayHeaderClass: (data: any) =>
-            `border-0! bg-gray-50! dark:bg-gray-900! ${
+            `border-0! bg-gray-50! dark:bg-gray-950! ${
               data.isToday ? 'bg-gray-100/70! dark:bg-gray-800/60!' : ''
             }`,
           dayHeaderInnerClass: (data: any) =>
-            `px-1.5! sm:px-3! py-2.5! sm:py-3.5! text-center! text-[11px]! sm:text-xs! font-medium! text-gray-500! uppercase! dark:text-gray-400! ${
+            `px-1.5! sm:px-3! py-2.5! sm:py-3.5! text-center! text-[11px]! sm:text-xs! font-medium! text-gray-700! uppercase! dark:text-gray-400! ${
               data.isToday
-                ? 'font-semibold! text-brand-500! dark:text-brand-400!'
+                ? 'font-bold! text-brand-700! dark:text-gold-400!'
                 : ''
             }`,
           slotHeaderDividerClass:
-            'border-e! border-s-0! border-y-0! border-gray-200! dark:border-gray-800!',
+            'border-e! border-s-0! border-y-0! border-gray-300! dark:border-white/10!',
           slotHeaderClass:
-            'px-1.5! sm:px-3! py-1.5! sm:py-2! text-start! text-[11px]! sm:text-xs! font-medium! text-gray-400! dark:text-gray-500!',
-          slotLaneClass: 'border-gray-100! dark:border-gray-800/60!',
+            'px-1.5! sm:px-3! py-1.5! sm:py-2! text-start! text-[11px]! sm:text-xs! font-medium! text-gray-700! dark:text-gray-500!',
+          slotLaneClass: 'border-gray-200! dark:border-gray-800/60!',
           dayLaneClass: (data: any) =>
-            `border-gray-200! dark:border-gray-800! ${
+            `border-gray-300! dark:border-white/10! ${
               data.isToday
                 ? 'bg-brand-50/15! dark:bg-brand-500/[0.03]!'
                 : ''
             }`,
           allDayDividerClass:
-            'border-b! border-t-0! border-x-0! border-gray-200! p-0! bg-transparent! dark:border-gray-800!',
+            'border-b! border-t-0! border-x-0! border-gray-300! p-0! bg-transparent! dark:border-white/10!',
           allDayHeaderClass:
-            'border-0! bg-gray-50! text-[11px]! sm:text-xs! font-medium! text-gray-500! dark:border-0! dark:bg-gray-900! dark:text-gray-400!',
+            'border-0! bg-gray-50! text-[11px]! sm:text-xs! font-medium! text-gray-700! dark:border-0! dark:bg-gray-950! dark:text-gray-400!',
         },
         timeGridDay: {
           slotDuration: '00:30:00',
@@ -322,7 +322,7 @@ export class CalenderComponent implements OnInit {
           rowMoreLinkInnerClass: this.isMobile ? 'overflow-visible!' : '',
           moreLinkContent: this.isMobile
             ? () => ({
-                html: `<span><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4.5 sm:size-5.5 text-brand-500"><path d="M19 3v17a1 1 0 01-1.496.868l-4.512-2.578a2 2 0 00-1.984 0l-4.512 2.578A1 1 0 015 20V3z" /></svg></span>`,
+                html: `<span><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4.5 sm:size-5.5 text-brand-700"><path d="M19 3v17a1 1 0 01-1.496.868l-4.512-2.578a2 2 0 00-1.984 0l-4.512 2.578A1 1 0 015 20V3z" /></svg></span>`,
               })
             : undefined,
           dayHeaderContent: (arg: any) => {
@@ -337,30 +337,30 @@ export class CalenderComponent implements OnInit {
             return `${weekday} - ${day}`;
           },
           dayHeaderClass: (data: any) =>
-            `border-0! bg-gray-50! dark:bg-gray-900! ${
+            `border-0! bg-gray-50! dark:bg-gray-950! ${
               data.isToday ? 'bg-gray-100/70! dark:bg-gray-800/60!' : ''
             }`,
           dayHeaderInnerClass: (data: any) =>
-            `px-2! sm:px-4! py-2.5! sm:py-3.5! text-center! text-xs! font-medium! text-gray-500! uppercase! dark:text-gray-400! ${
+            `px-2! sm:px-4! py-2.5! sm:py-3.5! text-center! text-xs! font-medium! text-gray-700! uppercase! dark:text-gray-400! ${
               data.isToday
-                ? 'font-semibold! text-brand-500! dark:text-brand-400!'
+                ? 'font-bold! text-brand-700! dark:text-gold-400!'
                 : ''
             }`,
           slotHeaderDividerClass:
-            'border-e! border-s-0! border-y-0! border-gray-200! dark:border-gray-800!',
+            'border-e! border-s-0! border-y-0! border-gray-300! dark:border-white/10!',
           slotHeaderClass:
-            'px-2! sm:px-3! py-1.5! sm:py-2! text-start! text-[11px]! sm:text-xs! font-medium! text-gray-400! dark:text-gray-500!',
-          slotLaneClass: 'border-gray-100! dark:border-gray-800/60!',
+            'px-2! sm:px-3! py-1.5! sm:py-2! text-start! text-[11px]! sm:text-xs! font-medium! text-gray-700! dark:text-gray-500!',
+          slotLaneClass: 'border-gray-200! dark:border-gray-800/60!',
           dayLaneClass: (data: any) =>
-            `border-gray-200! dark:border-gray-800! ${
+            `border-gray-300! dark:border-white/10! ${
               data.isToday
                 ? 'bg-brand-50/15! dark:bg-brand-500/[0.03]!'
                 : ''
             }`,
           allDayDividerClass:
-            'border-b! border-t-0! border-x-0! border-gray-200! p-0! bg-transparent! dark:border-gray-800!',
+            'border-b! border-t-0! border-x-0! border-gray-300! p-0! bg-transparent! dark:border-white/10!',
           allDayHeaderClass:
-            'border-0! bg-gray-50! text-xs! font-medium! text-gray-500! dark:border-0! dark:bg-gray-900! dark:text-gray-400!',
+            'border-0! bg-gray-50! text-xs! font-medium! text-gray-700! dark:border-0! dark:bg-gray-950! dark:text-gray-400!',
         },
       },
 
@@ -368,14 +368,14 @@ export class CalenderComponent implements OnInit {
       height: 'auto',
       borderless: true,
       viewClass:
-        'border-t! border-b-0! border-x-0! border-gray-200! dark:border-gray-800!',
+        'border-t! border-b-0! border-x-0! border-gray-300! dark:border-white/10!',
       dayHeaderDividerClass:
-        'border-b! border-t-0! border-x-0! border-gray-200! p-0! bg-transparent! dark:border-gray-800!',
+        'border-b! border-t-0! border-x-0! border-gray-300! p-0! bg-transparent! dark:border-white/10!',
       slotMinHeight: 56,
       slotHeaderDividerClass:
-        'border-e! border-s-0! border-y-0! border-gray-200! dark:border-gray-800!',
+        'border-e! border-s-0! border-y-0! border-gray-300! dark:border-white/10!',
       allDayDividerClass:
-        'border-b! border-t-0! border-x-0! border-gray-200! p-0! bg-transparent! dark:border-gray-800!',
+        'border-b! border-t-0! border-x-0! border-gray-300! p-0! bg-transparent! dark:border-white/10!',
       eventClass: 'focus:shadow-none',
       nowIndicator: false,
       columnEventClass:
@@ -388,9 +388,9 @@ export class CalenderComponent implements OnInit {
       rowEventInnerClass: 'p-0! border-0! bg-transparent!',
       popoverFormat: { month: 'short', day: 'numeric', year: 'numeric' },
       popoverClass:
-        'z-99999! w-72 max-w-[calc(100vw-32px)] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-theme-lg dark:border-gray-800 dark:bg-gray-900',
+        'z-99999! w-72 max-w-[calc(100vw-32px)] overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-theme-lg dark:border-white/10 dark:bg-gray-950',
       popoverCloseClass:
-        'absolute end-3 top-2.5 flex size-7 cursor-pointer items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 focus:outline-none dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-white',
+        'absolute end-3 top-2.5 flex size-7 cursor-pointer items-center justify-center rounded-lg text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-700 focus:outline-none dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-100',
       popoverCloseContent: {
         html: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M18 6L6 18M6 6l12 12" /></svg>`,
       },
@@ -424,7 +424,7 @@ export class CalenderComponent implements OnInit {
       <div class="calendar-view-dropdown relative">
         <button
           type="button"
-          class="calendar-view-btn flex h-9 w-full min-w-18 items-center justify-center gap-1 rounded-lg border border-gray-300 ps-2.5 pe-1.5 text-xs font-medium text-gray-700 shadow-xs sm:min-w-20 sm:gap-1.5 sm:ps-3 sm:pe-2 sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+          class="calendar-view-btn flex h-9 w-full min-w-18 items-center justify-center gap-1 rounded-lg border border-gray-300 ps-2.5 pe-1.5 text-xs font-medium text-gray-700 shadow-xs sm:min-w-20 sm:gap-1.5 sm:ps-3 sm:pe-2 sm:text-sm dark:border-white/10 dark:bg-brand-800 dark:text-gray-400"
           aria-expanded="false"
           aria-haspopup="listbox"
         >
@@ -433,7 +433,7 @@ export class CalenderComponent implements OnInit {
             <path d="m6 9 6 6 6-6"/>
           </svg>
         </button>
-        <div class="calendar-view-menu absolute end-0 z-50 mt-1.5 hidden w-36 max-w-[calc(100vw-32px)] space-y-0.5 rounded-xl border border-gray-200 bg-white p-1.5 shadow-lg sm:w-38 dark:border-gray-700 dark:bg-gray-900">
+        <div class="calendar-view-menu absolute end-0 z-50 mt-1.5 hidden w-36 max-w-[calc(100vw-32px)] space-y-0.5 rounded-xl border border-gray-300 bg-white p-1.5 shadow-lg sm:w-38 dark:border-white/10 dark:bg-gray-950">
           ${this.viewOptions
             .map(
               (view) => `
@@ -626,25 +626,25 @@ export class CalenderComponent implements OnInit {
         bg: 'border border-success-100 bg-success-50 dark:border-success-500/20 dark:bg-success-500/15',
         dot: 'bg-success-500',
         title: 'text-success-700 dark:text-success-400',
-        time: 'text-success-600/80 dark:text-success-400/80',
+        time: 'text-success-700/80 dark:text-success-400/80',
       },
       danger: {
         bg: 'border border-error-100 bg-error-50 dark:border-error-500/20 dark:bg-error-500/15',
         dot: 'bg-error-500',
         title: 'text-error-700 dark:text-error-400',
-        time: 'text-error-600/80 dark:text-error-400/80',
+        time: 'text-error-700/80 dark:text-error-400/80',
       },
       primary: {
         bg: 'border border-brand-100 bg-brand-50 dark:border-brand-500/20 dark:bg-brand-500/15',
-        dot: 'bg-brand-500',
-        title: 'text-brand-700 dark:text-brand-400',
+        dot: 'bg-brand-700 dark:bg-gold-400',
+        title: 'text-brand-700 dark:text-gold-400',
         time: 'text-brand-600/80 dark:text-brand-400/80',
       },
       warning: {
-        bg: 'border border-orange-100 bg-orange-50 dark:border-orange-500/20 dark:bg-orange-500/15',
-        dot: 'bg-orange-500',
-        title: 'text-orange-700 dark:text-orange-400',
-        time: 'text-orange-600/80 dark:text-orange-400/80',
+        bg: 'border border-warning-200 bg-warning-50 dark:border-warning-500/20 dark:bg-warning-500/15',
+        dot: 'bg-warning-500',
+        title: 'text-warning-700 dark:text-warning-400',
+        time: 'text-warning-700/80 dark:text-warning-400/80',
       },
     };
 
@@ -660,7 +660,7 @@ export class CalenderComponent implements OnInit {
           <div dir="ltr" class="event-fc-color flex h-full w-full flex-col justify-start overflow-hidden rounded-md p-1 transition-colors sm:rounded-lg sm:p-1.5 ${colors.bg}">
             <div class="flex items-center gap-1 sm:gap-1.5">
               <div class="size-1.5 shrink-0 rounded-full sm:size-2 ${colors.dot}"></div>
-              <div class="truncate text-[11px] font-semibold leading-tight sm:text-xs ${colors.title}">${eventInfo.event.title || ''}</div>
+              <div class="truncate text-[11px] font-bold leading-tight sm:text-xs ${colors.title}">${eventInfo.event.title || ''}</div>
             </div>
             ${
               eventInfo.timeText
@@ -678,10 +678,10 @@ export class CalenderComponent implements OnInit {
           <div class="fc-daygrid-event-dot ms-0 me-1 h-2.5 w-1 shrink-0 rounded-full border-none sm:me-2 sm:h-3.5 ${colors.dot}"></div>
           ${
             eventInfo.timeText
-              ? `<div class="fc-event-time me-1 p-0 text-[10px] font-normal text-gray-500 sm:me-1.5 sm:text-xs dark:text-gray-400">${eventInfo.timeText}</div>`
+              ? `<div class="fc-event-time me-1 p-0 text-[10px] font-normal text-gray-700 sm:me-1.5 sm:text-xs dark:text-gray-400">${eventInfo.timeText}</div>`
               : ''
           }
-          <div class="fc-event-title truncate p-0 text-[11px] font-medium text-gray-700 sm:text-xs dark:text-white">${eventInfo.event.title || ''}</div>
+          <div class="fc-event-title truncate p-0 text-[11px] font-medium text-gray-700 sm:text-xs dark:text-gray-100">${eventInfo.event.title || ''}</div>
         </div>
       `,
     };

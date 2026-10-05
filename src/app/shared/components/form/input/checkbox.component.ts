@@ -6,14 +6,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   imports: [CommonModule],
   template: `
   <label
-  class="flex items-center space-x-3 group cursor-pointer"
+  class="flex items-center gap-3 group cursor-pointer"
   [ngClass]="{ 'cursor-not-allowed opacity-60': disabled }"
 >
   <div class="relative w-5 h-5">
     <input
       [id]="id"
       type="checkbox"
-      class="w-5 h-5 appearance-none cursor-pointer dark:border-gray-700 border border-gray-300 checked:border-transparent rounded-md checked:bg-brand-500 disabled:opacity-60"
+      class="w-5 h-5 appearance-none cursor-pointer dark:border-white/10 border border-gray-300 checked:border-transparent rounded-md checked:bg-brand-700 disabled:opacity-60"
       [ngClass]="className"
       [checked]="checked"
       (change)="onChange($event)"
@@ -51,7 +51,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       >
         <path
           d="M11.6666 3.5L5.24992 9.91667L2.33325 7"
-          stroke="#E4E7EC"
+          stroke="currentColor"
+          class="text-gray-300"
           stroke-width="2.33333"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -62,7 +63,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   </div>
   @if (label) {
   <span
-    class="text-sm font-medium text-gray-800 dark:text-gray-200"
+    class="text-sm font-medium text-gray-950 dark:text-gray-200"
     >
       {{ label }}
   </span>

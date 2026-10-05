@@ -19,21 +19,21 @@ export interface Language {
 export class UserDropdownComponent implements OnInit {
   isOpen = false;
   subDropdownOpen = false;
-  currentLocale = 'en';
+  currentLocale = 'ar';
 
   languages: Language[] = [
+    {
+      id: 'ar',
+      name: 'العربية',
+      shortName: 'العربية',
+      flag: 'flag-sa.svg',
+      badge: 'RTL',
+    },
     {
       id: 'en',
       name: 'English',
       shortName: 'English',
       flag: 'flag-us.svg',
-    },
-    {
-      id: 'ar',
-      name: 'Arabic (Saudi)',
-      shortName: 'Arabic',
-      flag: 'flag-sa.svg',
-      badge: 'RTL',
     },
     {
       id: 'es',
@@ -52,14 +52,10 @@ export class UserDropdownComponent implements OnInit {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
-    const savedDir = localStorage.getItem('dir');
-    if (savedDir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl') {
-      this.currentLocale = 'ar';
-      document.documentElement.setAttribute('dir', 'rtl');
-    } else {
-      this.currentLocale = 'en';
-      document.documentElement.setAttribute('dir', 'ltr');
-    }
+    // Arabic-first: anything other than a stored `ltr` resolves to RTL.
+    const isLtr = localStorage.getItem('dir') === 'ltr';
+    this.currentLocale = isLtr ? 'en' : 'ar';
+    this.applyDirection(isLtr ? 'ltr' : 'rtl');
   }
 
   get currentLang(): Language {
@@ -87,14 +83,15 @@ export class UserDropdownComponent implements OnInit {
   selectLanguage(id: string, event?: Event): void {
     event?.stopPropagation();
     this.currentLocale = id;
-    if (id === 'ar') {
-      document.documentElement.setAttribute('dir', 'rtl');
-      localStorage.setItem('dir', 'rtl');
-    } else {
-      document.documentElement.setAttribute('dir', 'ltr');
-      localStorage.setItem('dir', 'ltr');
-    }
+    const dir = id === 'ar' ? 'rtl' : 'ltr';
+    localStorage.setItem('dir', dir);
+    this.applyDirection(dir);
     this.closeDropdown();
+  }
+
+  private applyDirection(dir: 'rtl' | 'ltr'): void {
+    document.documentElement.setAttribute('dir', dir);
+    document.documentElement.setAttribute('lang', this.currentLocale);
   }
 
   @HostListener('document:click', ['$event'])

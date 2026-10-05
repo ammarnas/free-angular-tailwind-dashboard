@@ -1,19 +1,19 @@
-<div class="rounded-xl border p-4" [ngClass]="variantClasses.container">
+<div class="rounded-2xl border p-4" [ngClass]="variantClasses.container">
   <div class="flex items-start gap-3">
     <div class="-mt-0.5" [ngClass]="variantClasses.icon" [innerHTML]="iconSvg | safeHtml"></div>
 
     <div>
-      <h4 class="mb-1 text-sm font-semibold text-gray-800 dark:text-white/90">
+      <h4 class="mb-1 text-sm font-bold text-gray-950 dark:text-gray-100">
         {{ title }}
       </h4>
       
 
-      <p class="text-sm text-gray-500 dark:text-gray-400">{{ message }}</p>
+      <p class="text-sm text-gray-700 dark:text-gray-400">{{ message }}</p>
 
       @if (showLink) {
       <a
         [routerLink]="linkHref"
-        class="inline-block mt-3 text-sm font-medium text-gray-500 underline dark:text-gray-400"
+        class="inline-block mt-3 text-sm font-medium text-gray-700 underline dark:text-gray-400"
       >
         {{ linkText }}
       </a>

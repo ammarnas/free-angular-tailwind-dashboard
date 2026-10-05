@@ -1,8 +1,8 @@
 
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import flatpickr from 'flatpickr';
 import { Instance } from 'flatpickr/dist/types/instance';
-import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgApexchartsModule, ChartComponent } from 'ng-apexcharts';
 
 import {
   ApexAxisChartSeries,
@@ -19,12 +19,16 @@ import {
 } from 'ng-apexcharts';
 import { ChartTabComponent } from '../../common/chart-tab/chart-tab.component';
 
+import { CHART_FONT, CHART_LABEL_DARK, CHART_LABEL_LIGHT, chartSeries } from '../../charts/chart-theme';
+import { Subscription } from 'rxjs';
+import { ThemeService } from '../../../services/theme.service';
+
 @Component({
   selector: 'app-statics-chart',
   imports: [NgApexchartsModule, ChartTabComponent],
   templateUrl: './statics-chart.component.html',
 })
-export class StatisticsChartComponent implements AfterViewInit {
+export class StatisticsChartComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('datepicker') datepicker!: ElementRef<HTMLInputElement>;
 
   ngAfterViewInit() {
@@ -56,13 +60,13 @@ export class StatisticsChartComponent implements AfterViewInit {
   ];
 
   public chart: ApexChart = {
-    fontFamily: 'Outfit, sans-serif',
+    fontFamily: CHART_FONT,
     height: 310,
     type: 'area',
     toolbar: { show: false },
   };
 
-  public colors: string[] = ['#465FFF', '#9CB9FF'];
+  public colors: string[] = chartSeries().slice(0, 2);
 
   public stroke: ApexStroke = {
     curve: 'straight',
@@ -121,7 +125,7 @@ export class StatisticsChartComponent implements AfterViewInit {
     labels: {
       style: {
         fontSize: '12px',
-        colors: ['#6B7280'],
+        colors: [CHART_LABEL_LIGHT],
       },
     },
     title: {
@@ -135,4 +139,47 @@ export class StatisticsChartComponent implements AfterViewInit {
     position: 'top',
     horizontalAlign: 'left',
   };
+
+  @ViewChild(ChartComponent) private chartRef?: ChartComponent;
+
+  private themeSub?: Subscription;
+
+  constructor(private themeService: ThemeService) {}
+
+  ngOnInit(): void {
+    // Charts hold plain colour arrays, so they have to be told when the theme
+    // flips — they do not re-read CSS variables on their own.
+    this.themeSub = this.themeService.theme$.subscribe((theme) =>
+      this.applyTheme(theme === 'dark'),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.themeSub?.unsubscribe();
+  }
+
+  private applyTheme(dark: boolean): void {
+    this.colors = chartSeries(dark).slice(0, 2);
+    this.yaxis = {
+      ...this.yaxis,
+      labels: {
+        ...(this.yaxis.labels ?? {}),
+        style: {
+          ...(this.yaxis.labels?.style ?? {}),
+          colors: [dark ? CHART_LABEL_DARK : CHART_LABEL_LIGHT],
+        },
+      },
+    };
+    this.pushOptions({ colors: this.colors, yaxis: this.yaxis });
+  }
+
+  /**
+   * The chart is already built by the time the theme flips, and re-binding the
+   * option inputs does not reliably trigger a re-create, so the new options go
+   * through ApexCharts' own `updateOptions` instead. Before the view exists,
+   * the field assignments above are what the first render picks up.
+   */
+  private pushOptions(options: Record<string, unknown>): void {
+    this.chartRef?.updateOptions(options, false, false);
+  }
 }

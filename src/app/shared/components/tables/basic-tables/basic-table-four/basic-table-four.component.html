@@ -1,7 +1,7 @@
-<div class="overflow-hidden rounded-2xl border border-gray-200 bg-white px-5 pb-3 pt-4 dark:border-white/[0.05] dark:bg-white/[0.03] sm:px-6">
+<div class="overflow-hidden rounded-2xl border border-gray-300 bg-white px-5 pb-3 pt-4 dark:border-white/[0.05] dark:bg-white/[0.03] sm:px-6">
   <div class="flex justify-between gap-2 mb-4 sm:items-center">
     <div>
-      <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
+      <h3 class="text-lg font-bold text-gray-950 dark:text-gray-100">
         Featured Campaigns
       </h3>
     </div>
@@ -9,7 +9,7 @@
     <div class="relative inline-block">
       <app-table-dropdown>
         <div dropdown-button>
-          <button class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+          <button class="text-gray-700 hover:text-gray-700 dark:hover:text-gray-300">
             <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path
                 fill-rule="evenodd"
@@ -22,13 +22,13 @@
         <div dropdown-content>
           <button
             (click)="handleViewMore()"
-            class="flex w-full font-normal text-start text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300 p-2"
+            class="flex w-full font-normal text-start text-gray-700 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300 p-2"
           >
             View More
           </button>
           <button
             (click)="handleDelete()"
-            class="flex w-full font-normal text-start text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300 p-2"
+            class="flex w-full font-normal text-start text-gray-700 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300 p-2"
           >
             Delete
           </button>
@@ -39,15 +39,15 @@
 
   <div class="max-w-full overflow-x-auto">
     <table class="w-full">
-      <thead class="border-gray-100 border-y dark:border-white/[0.05]">
+      <thead class="border-gray-200 border-y dark:border-white/[0.05]">
         <tr>
-          <th scope="col" class="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+          <th scope="col" class="py-3 font-medium text-gray-700 text-start text-theme-xs dark:text-gray-400">
             Products
           </th>
-          <th scope="col" class="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+          <th scope="col" class="py-3 font-medium text-gray-700 text-start text-theme-xs dark:text-gray-400">
             Campaign
           </th>
-          <th scope="col" class="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+          <th scope="col" class="py-3 font-medium text-gray-700 text-start text-theme-xs dark:text-gray-400">
             Status
           </th>
         </tr>
@@ -88,7 +88,7 @@
                 <p class="mb-0.5 truncate text-theme-sm font-medium text-gray-700 dark:text-gray-400">
                   {{item.campaign.name}}
                 </p>
-                <span class="text-gray-500 text-theme-xs dark:text-gray-400">
+                <span class="text-gray-700 text-theme-xs dark:text-gray-400">
                   {{item.campaign.type}}
                 </span>
               </div>

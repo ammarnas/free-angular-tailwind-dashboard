@@ -1,8 +1,12 @@
 
-import { Component } from '@angular/core';
-import { NgApexchartsModule, ApexAxisChartSeries, ApexChart, ApexXAxis, ApexPlotOptions, ApexDataLabels, ApexStroke, ApexLegend, ApexYAxis, ApexGrid, ApexFill, ApexTooltip } from 'ng-apexcharts';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NgApexchartsModule, ApexAxisChartSeries, ApexChart, ApexXAxis, ApexPlotOptions, ApexDataLabels, ApexStroke, ApexLegend, ApexYAxis, ApexGrid, ApexFill, ApexTooltip, ChartComponent } from 'ng-apexcharts';
 import { DropdownComponent } from '../../ui/dropdown/dropdown.component';
 import { DropdownItemComponent } from '../../ui/dropdown/dropdown-item/dropdown-item.component';
+
+import { CHART_FONT, chartSeries } from '../../charts/chart-theme';
+import { Subscription } from 'rxjs';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-monthly-sales-chart',
@@ -14,7 +18,7 @@ import { DropdownItemComponent } from '../../ui/dropdown/dropdown-item/dropdown-
 ],
   templateUrl: './monthly-sales-chart.component.html'
 })
-export class MonthlySalesChartComponent {
+export class MonthlySalesChartComponent implements OnInit, OnDestroy {
   public series: ApexAxisChartSeries = [
     {
       name: 'Sales',
@@ -22,7 +26,7 @@ export class MonthlySalesChartComponent {
     },
   ];
   public chart: ApexChart = {
-    fontFamily: 'Outfit, sans-serif',
+    fontFamily: CHART_FONT,
     type: 'bar',
     height: 180,
     toolbar: { show: false },
@@ -53,7 +57,7 @@ export class MonthlySalesChartComponent {
     show: true,
     position: 'top',
     horizontalAlign: 'left',
-    fontFamily: 'Outfit',
+    fontFamily: CHART_FONT,
   };
   public yaxis: ApexYAxis = { title: { text: undefined } };
   public grid: ApexGrid = { yaxis: { lines: { show: true } } };
@@ -62,7 +66,7 @@ export class MonthlySalesChartComponent {
     x: { show: false },
     y: { formatter: (val: number) => `${val}` },
   };
-  public colors: string[] = ['#465fff'];
+  public colors: string[] = [chartSeries()[0]];
 
   isOpen = false;
 
@@ -72,5 +76,38 @@ export class MonthlySalesChartComponent {
 
   closeDropdown() {
     this.isOpen = false;
+  }
+
+  @ViewChild(ChartComponent) private chartRef?: ChartComponent;
+
+  private themeSub?: Subscription;
+
+  constructor(private themeService: ThemeService) {}
+
+  ngOnInit(): void {
+    // Charts hold plain colour arrays, so they have to be told when the theme
+    // flips — they do not re-read CSS variables on their own.
+    this.themeSub = this.themeService.theme$.subscribe((theme) =>
+      this.applyTheme(theme === 'dark'),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.themeSub?.unsubscribe();
+  }
+
+  private applyTheme(dark: boolean): void {
+    this.colors = [chartSeries(dark)[0]];
+    this.pushOptions({ colors: this.colors });
+  }
+
+  /**
+   * The chart is already built by the time the theme flips, and re-binding the
+   * option inputs does not reliably trigger a re-create, so the new options go
+   * through ApexCharts' own `updateOptions` instead. Before the view exists,
+   * the field assignments above are what the first render picks up.
+   */
+  private pushOptions(options: Record<string, unknown>): void {
+    this.chartRef?.updateOptions(options, false, false);
   }
 }

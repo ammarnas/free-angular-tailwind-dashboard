@@ -32,17 +32,17 @@ import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/cor
     [ngClass]="
       'flex h-5 w-5 items-center justify-center rounded-full border-[1.25px] ' +
       (checked
-        ? 'border-brand-500 bg-brand-500'
-        : 'bg-transparent border-gray-300 dark:border-gray-700') +
+        ? 'border-brand-700 bg-brand-700 dark:bg-gold-400'
+        : 'bg-transparent border-gray-300 dark:border-white/10') +
       ' ' +
       (disabled
-        ? 'bg-gray-100 dark:bg-gray-700 border-gray-200 dark:border-gray-700'
+        ? 'bg-gray-100 dark:bg-brand-800 border-gray-300 dark:border-white/10'
         : '')
     "
   >
     <span
       [ngClass]="
-        'h-2 w-2 rounded-full bg-white ' + (checked ? 'block' : 'hidden')
+        'h-2 w-2 rounded-full bg-white dark:bg-brand-900 ' + (checked ? 'block' : 'hidden')
       "
     ></span>
   </span>

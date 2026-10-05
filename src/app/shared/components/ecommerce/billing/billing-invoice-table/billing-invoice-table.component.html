@@ -1,16 +1,16 @@
- <div class="rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+ <div class="rounded-xl border border-gray-300 bg-white dark:border-white/10 dark:bg-white/[0.03]">
 <div class="px-6">
   <div class="flex flex-col justify-between gap-5 py-4 sm:flex-row sm:items-center">
     <div>
-      <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
+      <h3 class="text-lg font-bold text-gray-950 dark:text-gray-100">
         Invoices
       </h3>
-      <p class="text-sm text-gray-500 dark:text-gray-400">
+      <p class="text-sm text-gray-700 dark:text-gray-400">
         Access all your previous invoices.
       </p>
     </div>
     <div>
-      <button (click)="onDownloadAll()" type="button" class="shadow-theme-xs flex w-full justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
+      <button (click)="onDownloadAll()" type="button" class="shadow-theme-xs flex w-full justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-950 dark:border-white/10 dark:bg-brand-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none"><path d="M17.1661 13.333V15.4163C17.1661 16.1067 16.6064 16.6663 15.9161 16.6663H5.08203C4.39168 16.6663 3.83203 16.1067 3.83203 15.4163V13.333M10.5004 13.333L10.5005 3.33301M6.64456 9.47918L10.4986 13.3308L14.3529 9.47918" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         Download All
       </button>
@@ -21,40 +21,40 @@
   <div class="custom-scrollbar overflow-x-auto px-6">
     <table class="min-w-full">
       <thead>
-        <tr class="border-y border-gray-200 dark:border-gray-800">
+        <tr class="border-y border-gray-300 dark:border-white/10">
           <th
-            class="px-6 py-3 text-left text-sm font-normal text-gray-500 first:pl-0 dark:text-gray-400"
+            class="px-6 py-3 text-left text-sm font-normal text-gray-700 first:pl-0 dark:text-gray-400"
           >
             Name
           </th>
           <th
-            class="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400"
+            class="px-6 py-3 text-left text-sm font-normal text-gray-700 dark:text-gray-400"
           >
             Date
           </th>
           <th
-            class="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400"
+            class="px-6 py-3 text-left text-sm font-normal text-gray-700 dark:text-gray-400"
           >
             Price
           </th>
           <th
-            class="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400"
+            class="px-6 py-3 text-left text-sm font-normal text-gray-700 dark:text-gray-400"
           >
             Plan
           </th>
           <th
-            class="px-6 py-3 text-left text-sm font-normal text-gray-500 dark:text-gray-400"
+            class="px-6 py-3 text-left text-sm font-normal text-gray-700 dark:text-gray-400"
           >
             Status
           </th>
           <th
-            class="px-6 py-3 text-right text-sm font-normal text-gray-500 dark:text-gray-400"
+            class="px-6 py-3 text-right text-sm font-normal text-gray-700 dark:text-gray-400"
           >
             Action
           </th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+      <tbody class="divide-y divide-gray-300 dark:divide-white/10">
         @for (invoice of paginatedInvoices; track invoice.id) {
         <tr>
           <td class="px-6 py-3 text-left whitespace-nowrap first:pl-0">
@@ -122,11 +122,11 @@
           </td>
           <td class="px-6 py-3">
             <span
-              class="inline-flex items-center justify-center gap-1 rounded-full px-2.5 py-0.5 text-sm font-medium"
+              class="inline-flex items-center justify-center gap-1 rounded-lg px-2.5 py-0.5 text-sm font-medium"
               [ngClass]="{
-                'bg-success-50 text-success-600 dark:bg-success-500/15 dark:text-success-500':
+                'bg-success-50 text-success-700 dark:bg-success-500/15 dark:text-success-400':
                   invoice.status === 'Paid',
-                'bg-error-50 text-error-600 dark:bg-error-500/15 dark:text-error-500':
+                'bg-error-50 text-error-700 dark:bg-error-500/15 dark:text-error-400':
                   invoice.status === 'Unpaid'
               }"
             >
@@ -135,10 +135,10 @@
           </td>
           <td class="px-6 py-3">
             <div class="flex justify-end gap-2">
-              <button class="shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
+              <button class="shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-white/10 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none"><path d="M17.1661 13.333V15.4163C17.1661 16.1067 16.6064 16.6663 15.9161 16.6663H5.08203C4.39168 16.6663 3.83203 16.1067 3.83203 15.4163V13.333M10.5004 13.333L10.5004 3.33301M6.64456 9.47918L10.4986 13.3308L14.3529 9.47918" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
               </button>
-              <button class="shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
+              <button class="shadow-theme-xs inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-white/10 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none"><path d="M2.96487 10.7925C2.73306 10.2899 2.73306 9.71023 2.96487 9.20764C4.28084 6.35442 7.15966 4.375 10.4993 4.375C13.8389 4.375 16.7178 6.35442 18.0337 9.20765C18.2655 9.71024 18.2655 10.2899 18.0337 10.7925C16.7178 13.6458 13.8389 15.6252 10.4993 15.6252C7.15966 15.6252 4.28084 13.6458 2.96487 10.7925Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M13.5202 10C13.5202 11.6684 12.1677 13.0208 10.4993 13.0208C8.83099 13.0208 7.47852 11.6684 7.47852 10C7.47852 8.33164 8.83099 6.97917 10.4993 6.97917C12.1677 6.97917 13.5202 8.33164 13.5202 10Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
               </button>
             </div>
@@ -148,7 +148,7 @@
       </tbody>
     </table>
   </div>
-  <div class="rounded-b-xl border-t border-gray-200 px-6 py-4 dark:border-gray-800">
+  <div class="rounded-b-xl border-t border-gray-300 px-6 py-4 dark:border-white/10">
     <div class="flex justify-center">
       <div
         class="block pb-4 text-sm text-gray-700 sm:hidden dark:text-gray-400"
@@ -162,10 +162,10 @@
       class="flex items-center justify-between gap-8 bg-gray-50 dark:bg-white/[0.03] p-4 rounded-lg sm:p-0 dark:sm:bg-transparent sm:bg-transparent"
     >
       <button
-        class="shadow-theme-xs flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-700 sm:px-3.5 sm:py-2.5 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+        class="shadow-theme-xs flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-700 sm:px-3.5 sm:py-2.5 dark:border-white/10 dark:bg-brand-800 dark:text-gray-400"
         [ngClass]="{
           'opacity-50 cursor-not-allowed': currentPage === 1,
-          'hover:bg-gray-50 hover:text-gray-800 dark:hover:bg-white/[0.03] dark:hover:text-gray-200':
+          'hover:bg-gray-50 hover:text-gray-950 dark:hover:bg-white/[0.03] dark:hover:text-gray-200':
             currentPage !== 1
         }"
         [disabled]="currentPage === 1"
@@ -185,9 +185,9 @@
           <button
             class="flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium"
             [ngClass]="{
-              'bg-brand-500 text-white hover:bg-brand-500 hover:text-white':
+              'bg-brand-700 dark:bg-gold-400 dark:hover:bg-gold-300 dark:text-brand-900 text-white hover:bg-brand-800 hover:text-white':
                 currentPage === page,
-              'text-gray-700 hover:bg-brand-500 hover:text-white dark:text-gray-400 dark:hover:text-white':
+              'text-gray-700 hover:bg-brand-800 hover:text-white dark:text-gray-400 dark:hover:text-gray-100':
                 currentPage !== page
             }"
             (click)="goToPage(page)"
@@ -198,10 +198,10 @@
         }
       </ul>
       <button
-        class="shadow-theme-xs flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-700 sm:px-3.5 sm:py-2.5 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+        class="shadow-theme-xs flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-700 sm:px-3.5 sm:py-2.5 dark:border-white/10 dark:bg-brand-800 dark:text-gray-400"
         [ngClass]="{
           'opacity-50 cursor-not-allowed': currentPage === totalPages,
-          'hover:bg-gray-50 hover:text-gray-800 dark:hover:bg-white/[0.03] dark:hover:text-gray-200':
+          'hover:bg-gray-50 hover:text-gray-950 dark:hover:bg-white/[0.03] dark:hover:text-gray-200':
             currentPage !== totalPages
         }"
         [disabled]="currentPage === totalPages"

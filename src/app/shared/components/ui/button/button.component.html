@@ -1,7 +1,9 @@
 <button
   type="button"
   [ngClass]="
-    'inline-flex items-center justify-center gap-2 rounded-lg transition ' +
+    'inline-flex items-center justify-center gap-2 rounded-lg transition-colors duration-200 ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2 ' +
+    'focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950 ' +
     className + ' ' +
     sizeClasses + ' ' +
     variantClasses + ' ' +

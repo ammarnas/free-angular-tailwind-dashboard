@@ -30,83 +30,83 @@ export const routes: Routes = [
         component: EcommerceComponent,
         pathMatch: 'full',
         title:
-          'Angular Ecommerce Dashboard | TailAdmin - Angular Admin Dashboard Template',
+          'لوحة التحكم | الهيئة العامة للمنافذ والجمارك',
       },
       {
         path:'calendar',
         component:CalenderComponent,
-        title:'Angular Calender | TailAdmin - Angular Admin Dashboard Template'
+        title:'Calender | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'profile',
         component:ProfileComponent,
-        title:'Angular Profile Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Profile | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'form-elements',
         component:FormElementsComponent,
-        title:'Angular Form Elements Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Form Elements | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'search-filter',
         component:SearchFilterDemoComponent,
-        title:'Angular Search & Filter | TailAdmin - Angular Admin Dashboard Template'
+        title:'Search & Filter | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'basic-tables',
         component:BasicTablesComponent,
-        title:'Angular Basic Tables Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Basic Tables | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'blank',
         component:BlankComponent,
-        title:'Angular Blank Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Blank | الهيئة العامة للمنافذ والجمارك'
       },
       // support tickets
       {
         path:'invoice',
         component:InvoicesComponent,
-        title:'Angular Invoice Details Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Invoice Details | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'line-chart',
         component:LineChartComponent,
-        title:'Angular Line Chart Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Line Chart | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'bar-chart',
         component:BarChartComponent,
-        title:'Angular Bar Chart Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Bar Chart | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'alerts',
         component:AlertsComponent,
-        title:'Angular Alerts Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Alerts | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'avatars',
         component:AvatarElementComponent,
-        title:'Angular Avatars Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Avatars | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'badge',
         component:BadgesComponent,
-        title:'Angular Badges Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Badges | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'buttons',
         component:ButtonsComponent,
-        title:'Angular Buttons Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Buttons | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'images',
         component:ImagesComponent,
-        title:'Angular Images Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Images | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'videos',
         component:VideosComponent,
-        title:'Angular Videos Dashboard | TailAdmin - Angular Admin Dashboard Template'
+        title:'Videos | الهيئة العامة للمنافذ والجمارك'
       },
     ]
   },
@@ -114,17 +114,17 @@ export const routes: Routes = [
   {
     path:'signin',
     component:SignInComponent,
-    title:'Angular Sign In Dashboard | TailAdmin - Angular Admin Dashboard Template'
+    title:'Sign In | الهيئة العامة للمنافذ والجمارك'
   },
   {
     path:'signup',
     component:SignUpComponent,
-    title:'Angular Sign Up Dashboard | TailAdmin - Angular Admin Dashboard Template'
+    title:'Sign Up | الهيئة العامة للمنافذ والجمارك'
   },
   // error pages
   {
     path:'**',
     component:NotFoundComponent,
-    title:'Angular NotFound Dashboard | TailAdmin - Angular Admin Dashboard Template'
+    title:'NotFound | الهيئة العامة للمنافذ والجمارك'
   },
 ];

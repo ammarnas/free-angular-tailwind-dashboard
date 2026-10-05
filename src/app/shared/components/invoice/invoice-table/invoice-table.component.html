@@ -1,7 +1,7 @@
-<!-- <div class="overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
+<!-- <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
   <div class="max-w-full overflow-x-auto">
     <table class="w-full">
-      <thead class="border-b border-gray-100 dark:border-white/[0.05]">
+      <thead class="border-b border-gray-200 dark:border-white/[0.05]">
         <tr>
           <th class="px-5 py-3 text-sm font-medium text-left text-gray-700 dark:text-gray-400">#</th>
           <th class="px-5 py-3 text-sm font-medium text-left text-gray-700 dark:text-gray-400">Product</th>
@@ -12,10 +12,10 @@
       <tbody class="divide-y divide-gray-100 dark:divide-white/[0.05]">
         @for (item of items; track $index; let i = $index) {
         <tr>
-          <td class="px-5 py-3.5 text-left text-gray-500 text-sm dark:text-gray-400">{{ i + 1 }}</td>
-          <td class="px-5 py-3.5 text-left text-gray-500 text-sm dark:text-gray-400">{{ item.product }}</td>
-          <td class="px-5 py-3.5 text-left text-gray-500 text-sm dark:text-gray-400">{{ item.quantity }}</td>
-          <td class="px-5 py-3.5 text-left text-gray-500 text-sm dark:text-gray-400">{{ item.unitCost }}</td>
+          <td class="px-5 py-3.5 text-left text-gray-700 text-sm dark:text-gray-400">{{ i + 1 }}</td>
+          <td class="px-5 py-3.5 text-left text-gray-700 text-sm dark:text-gray-400">{{ item.product }}</td>
+          <td class="px-5 py-3.5 text-left text-gray-700 text-sm dark:text-gray-400">{{ item.quantity }}</td>
+          <td class="px-5 py-3.5 text-left text-gray-700 text-sm dark:text-gray-400">{{ item.unitCost }}</td>
         </tr>
         }
       </tbody>
@@ -24,14 +24,14 @@
 </div> -->
 
 <div>
-  <div class="overflow-x-auto rounded-xl border border-gray-100 dark:border-gray-800">
+  <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-white/10">
     <table class="min-w-full text-left text-gray-700 dark:text-gray-400">
-      <thead class="bg-gray-50 dark:bg-gray-900">
-        <tr class="border-b border-gray-100 dark:border-gray-800">
+      <thead class="bg-gray-50 dark:bg-gray-950">
+        <tr class="border-b border-gray-200 dark:border-white/10">
           <th class="px-5 py-3 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">
             S.No.#
           </th>
-          <th class="px-5 py-3 text-xs font-medium whitespace-nowrap text-gray-500 dark:text-gray-400">
+          <th class="px-5 py-3 text-xs font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">
             Products
           </th>
           <th class="px-5 py-3 text-center text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">
@@ -48,25 +48,25 @@
           </th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+      <tbody class="divide-y divide-gray-100 dark:divide-white/10">
         @for (row of rows; track $index) {
           <tr>
-            <td class="px-5 py-3 text-sm text-gray-500 dark:text-gray-400">
+            <td class="px-5 py-3 text-sm text-gray-700 dark:text-gray-400">
               {{ row.sno }}
             </td>
-            <td class="px-5 py-3 text-sm font-medium text-gray-800 dark:text-white/90">
+            <td class="px-5 py-3 text-sm font-medium text-gray-950 dark:text-gray-100">
               {{ row.product }}
             </td>
-            <td class="px-5 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
+            <td class="px-5 py-3 text-center text-sm text-gray-700 dark:text-gray-400">
               {{ row.qty }}
             </td>
-            <td class="px-5 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
+            <td class="px-5 py-3 text-center text-sm text-gray-700 dark:text-gray-400">
               {{ row.unitCost }}
             </td>
-            <td class="px-5 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
+            <td class="px-5 py-3 text-center text-sm text-gray-700 dark:text-gray-400">
               {{ row.discount }}
             </td>
-            <td class="px-5 py-3 text-right text-sm text-gray-500 dark:text-gray-400">
+            <td class="px-5 py-3 text-right text-sm text-gray-700 dark:text-gray-400">
               {{ row.total }}
             </td>
           </tr>

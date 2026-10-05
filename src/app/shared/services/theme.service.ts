@@ -22,14 +22,15 @@ export class ThemeService {
   setTheme(theme: Theme) {
     this.themeSubject.next(theme);
     localStorage.setItem('theme', theme);
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-      document.documentElement.setAttribute('data-color-scheme', 'dark');
-      document.body.classList.add('dark:bg-gray-900');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.setAttribute('data-color-scheme', 'light');
-      document.body.classList.remove('dark:bg-gray-900');
-    }
+
+    const root = document.documentElement;
+    root.classList.toggle('dark', theme === 'dark');
+    root.setAttribute('data-theme', theme);
+    // `data-color-scheme` is kept because the FullCalendar overrides in
+    // styles.css still select on it.
+    root.setAttribute('data-color-scheme', theme);
+    // The CSS property — not the attribute — is what makes native form
+    // controls, scrollbars and <select> popups follow the theme.
+    root.style.colorScheme = theme;
   }
 }

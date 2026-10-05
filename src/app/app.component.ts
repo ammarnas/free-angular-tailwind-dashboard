@@ -11,12 +11,13 @@ import { RouterModule } from '@angular/router';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  title = 'Angular Ecommerce Dashboard | TailAdmin';
+  title = 'الهيئة العامة للمنافذ والجمارك | لوحة التحكم';
 
   ngOnInit(): void {
-    const savedDir = localStorage.getItem('dir');
-    if (savedDir === 'rtl') {
-      document.documentElement.setAttribute('dir', 'rtl');
-    }
+    // The interface is Arabic-first: RTL is the default and `ltr` is the
+    // opt-in stored override, which inverts the template's original default.
+    const savedDir = localStorage.getItem('dir') === 'ltr' ? 'ltr' : 'rtl';
+    document.documentElement.setAttribute('dir', savedDir);
+    document.documentElement.setAttribute('lang', savedDir === 'rtl' ? 'ar' : 'en');
   }
 }

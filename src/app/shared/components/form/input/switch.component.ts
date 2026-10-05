@@ -9,7 +9,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
   template: `
    <label
       class="flex cursor-pointer select-none items-center gap-3 text-sm font-medium"
-      [ngClass]="disabled ? 'text-gray-400' : 'text-gray-700 dark:text-gray-400'"
+      [ngClass]="disabled ? 'text-gray-700' : 'text-gray-700 dark:text-gray-400'"
       (click)="handleToggle()"
     >
       <div class="relative">
@@ -17,7 +17,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
           class="block transition duration-150 ease-linear h-6 w-11 rounded-full"
           [ngClass]="
             (disabled
-              ? 'bg-gray-100 pointer-events-none dark:bg-gray-800'
+              ? 'bg-gray-100 pointer-events-none dark:bg-brand-800'
               : switchColors.background)
           "
         ></div>
@@ -55,10 +55,10 @@ export class SwitchComponent {
     if (this.color === 'blue') {
       return {
         background: this.isChecked
-          ? 'bg-brand-500'
+          ? 'bg-brand-700 dark:bg-gold-400'
           : 'bg-gray-200 dark:bg-white/10',
         knob: this.isChecked
-          ? 'translate-x-full bg-white'
+          ? 'translate-x-full rtl:-translate-x-full bg-white dark:bg-brand-900'
           : 'translate-x-0 bg-white',
       };
     } else {
@@ -67,7 +67,7 @@ export class SwitchComponent {
           ? 'bg-gray-800 dark:bg-white/10'
           : 'bg-gray-200 dark:bg-white/10',
         knob: this.isChecked
-          ? 'translate-x-full bg-white'
+          ? 'translate-x-full rtl:-translate-x-full bg-white dark:bg-brand-900'
           : 'translate-x-0 bg-white',
       };
     }

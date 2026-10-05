@@ -1,6 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap")
-layer(base);
-
 @import "tailwindcss";
 @import "swiper/css/bundle";
 @import "flatpickr/dist/flatpickr.css";
@@ -10,9 +7,52 @@ layer(base);
 
 @custom-variant dark (&:is(.dark *));
 
+/* ==========================================================================
+   itf Qomra Arabic — brand typeface, self-hosted. The five TTFs ship as five
+   separate families in their `name` tables; they are collapsed here into one
+   "Qomra" family with explicit weights so the browser never synthesises.
+   Only 300/400/500/700/900 exist. There are no italics.
+   ========================================================================== */
+@font-face {
+  font-family: "Qomra";
+  src: url("/fonts/qomra-light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Qomra";
+  src: url("/fonts/qomra-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Qomra";
+  src: url("/fonts/qomra-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Qomra";
+  src: url("/fonts/qomra-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Qomra";
+  src: url("/fonts/qomra-black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-*: initial;
-  --font-outfit: Outfit, sans-serif;
+  --font-qomra: "Qomra", "Outfit", system-ui, sans-serif;
+  --font-outfit: Outfit, sans-serif; /* legacy, do not use in new markup */
 
   --breakpoint-*: initial;
   --breakpoint-2xsm: 375px;
@@ -44,60 +84,64 @@ layer(base);
   --color-current: currentColor;
   --color-transparent: transparent;
   --color-white: #ffffff;
-  --color-black: #101828;
+  --color-black: #131818;
 
-  --color-brand-25: #f2f7ff;
-  --color-brand-50: #ecf3ff;
-  --color-brand-100: #dde9ff;
-  --color-brand-200: #c2d6ff;
-  --color-brand-300: #9cb9ff;
-  --color-brand-400: #7592ff;
-  --color-brand-500: #465fff;
-  --color-brand-600: #3641f5;
-  --color-brand-700: #2a31d8;
-  --color-brand-800: #252dae;
-  --color-brand-900: #262e89;
-  --color-brand-950: #161950;
+  /* Primary — Authority green. Core brand sits at 700. */
+  --color-brand-25: #f6f8f8;
+  --color-brand-50: #edf1f1;
+  --color-brand-100: #dbe3e2;
+  --color-brand-200: #b8c7c5;
+  --color-brand-300: #8aa3a0;
+  --color-brand-400: #577c76;
+  --color-brand-500: #2e5c55;
+  --color-brand-600: #144841;
+  --color-brand-700: #003830; /* brand */
+  --color-brand-800: #022f29;
+  --color-brand-900: #0c2723; /* palette */
+  --color-brand-950: #071715;
 
-  --color-blue-light-25: #f5fbff;
-  --color-blue-light-50: #f0f9ff;
-  --color-blue-light-100: #e0f2fe;
-  --color-blue-light-200: #b9e6fe;
-  --color-blue-light-300: #7cd4fd;
-  --color-blue-light-400: #36bffa;
-  --color-blue-light-500: #0ba5ec;
-  --color-blue-light-600: #0086c9;
-  --color-blue-light-700: #026aa2;
-  --color-blue-light-800: #065986;
-  --color-blue-light-900: #0b4a6f;
-  --color-blue-light-950: #062c41;
+  /* Accent — gold */
+  --color-gold-25: #fbfaf9;
+  --color-gold-50: #f7f5f2;
+  --color-gold-100: #eeece5;
+  --color-gold-200: #ddd8cb;
+  --color-gold-300: #c6bea8;
+  --color-gold-400: #b9a879; /* palette */
+  --color-gold-500: #96865d; /* palette */
+  --color-gold-600: #857753;
+  --color-gold-700: #6f6446;
+  --color-gold-800: #585139;
+  --color-gold-900: #45402e;
+  --color-gold-950: #2e2c21;
 
-  --color-gray-25: #fcfcfd;
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f2f4f7;
-  --color-gray-200: #e4e7ec;
-  --color-gray-300: #d0d5dd;
-  --color-gray-400: #98a2b3;
-  --color-gray-500: #667085;
-  --color-gray-600: #475467;
-  --color-gray-700: #344054;
-  --color-gray-800: #1d2939;
-  --color-gray-900: #101828;
-  --color-gray-950: #0c111d;
-  --color-gray-dark: #1a2231;
+  /* Secondary — maroon */
+  --color-maroon-25: #faf8f8;
+  --color-maroon-50: #f5f1f2;
+  --color-maroon-100: #eae3e5;
+  --color-maroon-200: #d6c7ca;
+  --color-maroon-300: #b79da3;
+  --color-maroon-400: #916a73;
+  --color-maroon-500: #72404b;
+  --color-maroon-600: #612936;
+  --color-maroon-700: #531624; /* palette */
+  --color-maroon-800: #44141f;
+  --color-maroon-900: #37131b;
+  --color-maroon-950: #261013; /* palette */
 
-  --color-orange-25: #fffaf5;
-  --color-orange-50: #fff6ed;
-  --color-orange-100: #ffead5;
-  --color-orange-200: #fddcab;
-  --color-orange-300: #feb273;
-  --color-orange-400: #fd853a;
-  --color-orange-500: #fb6514;
-  --color-orange-600: #ec4a0a;
-  --color-orange-700: #c4320a;
-  --color-orange-800: #9c2a10;
-  --color-orange-900: #7e2410;
-  --color-orange-950: #511c10;
+  /* Neutrals — warm, cream-to-ink. */
+  --color-gray-25: #faf8f4;
+  --color-gray-50: #f4f1ea;
+  --color-gray-100: #f0ebe1; /* palette cream */
+  --color-gray-200: #e3ded5;
+  --color-gray-300: #d1cdc5;
+  --color-gray-400: #bbb8b1;
+  --color-gray-500: #9c9b95;
+  --color-gray-600: #7d7d78;
+  --color-gray-700: #676864;
+  --color-gray-800: #515350;
+  --color-gray-900: #2e3130;
+  --color-gray-950: #131818; /* palette ink */
+  --color-gray-dark: #0c2723;
 
   --color-success-25: #f6fef9;
   --color-success-50: #ecfdf3;
@@ -138,28 +182,25 @@ layer(base);
   --color-warning-900: #7a2e0e;
   --color-warning-950: #4e1d09;
 
-  --color-theme-pink-500: #ee46bc;
+  /* Elevation — retinted to brand ink. Layering only, never decoration. */
+  --shadow-theme-md: 0px 4px 8px -2px rgba(12, 39, 35, 0.1),
+    0px 2px 4px -2px rgba(12, 39, 35, 0.06);
+  --shadow-theme-lg: 0px 12px 16px -4px rgba(12, 39, 35, 0.08),
+    0px 4px 6px -2px rgba(12, 39, 35, 0.03);
+  --shadow-theme-sm: 0px 1px 3px 0px rgba(12, 39, 35, 0.1),
+    0px 1px 2px 0px rgba(12, 39, 35, 0.06);
+  --shadow-theme-xs: 0px 1px 2px 0px rgba(12, 39, 35, 0.05);
+  --shadow-theme-xl: 0px 20px 24px -4px rgba(12, 39, 35, 0.08),
+    0px 8px 8px -4px rgba(12, 39, 35, 0.03);
+  --shadow-datepicker: -5px 0 0 #022f29, 5px 0 0 #022f29;
+  --shadow-focus-ring: 0px 0px 0px 4px rgba(185, 168, 121, 0.35);
+  --shadow-slider-navigation: 0px 1px 2px 0px rgba(12, 39, 35, 0.1),
+    0px 1px 3px 0px rgba(12, 39, 35, 0.1);
+  --shadow-tooltip: 0px 4px 6px -2px rgba(12, 39, 35, 0.05),
+    -8px 0px 20px 8px rgba(12, 39, 35, 0.05);
 
-  --color-theme-purple-500: #7a5af8;
-
-  --shadow-theme-md: 0px 4px 8px -2px rgba(16, 24, 40, 0.1),
-    0px 2px 4px -2px rgba(16, 24, 40, 0.06);
-  --shadow-theme-lg: 0px 12px 16px -4px rgba(16, 24, 40, 0.08),
-    0px 4px 6px -2px rgba(16, 24, 40, 0.03);
-  --shadow-theme-sm: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
-    0px 1px 2px 0px rgba(16, 24, 40, 0.06);
-  --shadow-theme-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-  --shadow-theme-xl: 0px 20px 24px -4px rgba(16, 24, 40, 0.08),
-    0px 8px 8px -4px rgba(16, 24, 40, 0.03);
-  --shadow-datepicker: -5px 0 0 #262d3c, 5px 0 0 #262d3c;
-  --shadow-focus-ring: 0px 0px 0px 4px rgba(70, 95, 255, 0.12);
-  --shadow-slider-navigation: 0px 1px 2px 0px rgba(16, 24, 40, 0.1),
-    0px 1px 3px 0px rgba(16, 24, 40, 0.1);
-  --shadow-tooltip: 0px 4px 6px -2px rgba(16, 24, 40, 0.05),
-    -8px 0px 20px 8px rgba(16, 24, 40, 0.05);
-
-  --drop-shadow-4xl: 0 35px 35px rgba(0, 0, 0, 0.25),
-    0 45px 65px rgba(0, 0, 0, 0.15);
+  --drop-shadow-4xl: 0 35px 35px rgba(12, 39, 35, 0.25),
+    0 45px 65px rgba(12, 39, 35, 0.15);
 
   --z-index-1: 1;
   --z-index-9: 9;
@@ -191,28 +232,100 @@ layer(base);
     cursor: pointer;
   }
   body {
-    @apply relative font-normal font-outfit z-1 bg-gray-50;
+    @apply relative font-normal font-qomra z-1 bg-gray-100 text-gray-950 dark:bg-brand-900 dark:text-gray-100;
   }
+  /* No italics exist in Qomra — never let the browser synthesise one. */
+  i,
+  em,
+  cite,
+  address,
+  dfn,
+  var {
+    font-style: normal;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-gold-400 ring-offset-2 ring-offset-white dark:ring-offset-brand-900;
+  }
+
+  /*
+    The shell is RTL by default while most copy in this template is still
+    English. `plaintext` resolves each text block's direction from its own
+    first strong character, so an English sentence keeps its trailing
+    punctuation on the right and an Arabic one keeps it on the left — without
+    unsetting the RTL layout around it.
+  */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  th,
+  td,
+  caption,
+  figcaption,
+  blockquote,
+  label,
+  dt,
+  dd,
+  option,
+  li,
+  span,
+  a,
+  button,
+  small,
+  strong,
+  b,
+  code {
+    unicode-bidi: plaintext;
+  }
+
+  /*
+    Numbers, dates, currency, tracking numbers and HS codes stay LTR inside
+    RTL text. A mis-shaped declaration number is a data error, not a cosmetic
+    one — mark such values with `dir="ltr"`.
+  */
+  [dir="ltr"] {
+    unicode-bidi: isolate;
+  }
+}
+
+/*
+  The one gradient the brand allows (§2.6): hero and login panels only.
+  No gold gradients, no three-stop gradients.
+*/
+@utility bg-brand-hero {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-brand-700),
+    var(--color-brand-900)
+  );
 }
 
 @utility menu-item {
   @apply relative flex items-center w-full gap-3 px-3 py-2 font-medium rounded-lg text-theme-sm;
 }
 
+/*
+  The sidebar is always dark green in both themes — it carries the brand —
+  so every menu utility below is written once for a dark ground. Active
+  state is gold, never green: green on green has no contrast.
+*/
 @utility menu-item-active {
-  @apply bg-brand-50 text-brand-500 dark:bg-brand-500/[0.12] dark:text-brand-400;
+  @apply bg-white/10 text-gold-400;
 }
 
 @utility menu-item-inactive {
-  @apply text-gray-700 hover:bg-gray-100 group-hover:text-gray-700 dark:text-gray-300 dark:hover:bg-white/5 dark:hover:text-gray-300;
+  @apply text-gray-100/80 hover:bg-white/5 hover:text-white group-hover:text-white;
 }
 
 @utility menu-item-icon {
-  @apply text-gray-500 group-hover:text-gray-700 dark:text-gray-400;
+  @apply text-gray-100/60 group-hover:text-gold-400;
 }
 
 @utility menu-item-icon-active {
-  @apply text-brand-500 dark:text-brand-400;
+  @apply text-gold-400;
 }
 
 @utility menu-item-icon-size {
@@ -222,7 +335,7 @@ layer(base);
 }
 
 @utility menu-item-icon-inactive {
-  @apply text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-300;
+  @apply text-gray-100/60 group-hover:text-gold-400;
 }
 
 @utility menu-item-arrow {
@@ -230,46 +343,46 @@ layer(base);
 }
 
 @utility menu-item-arrow-active {
-  @apply rotate-180 text-brand-500 dark:text-brand-400;
+  @apply rotate-180 text-gold-400;
 }
 
 @utility menu-item-arrow-inactive {
-  @apply text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-300;
+  @apply text-gray-100/60 group-hover:text-gold-400;
 }
 
 @utility menu-dropdown-item {
   @apply relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-theme-sm font-medium;
 }
 @utility menu-dropdown-item-active {
-  @apply bg-brand-50 text-brand-500 dark:bg-brand-500/[0.12] dark:text-brand-400;
+  @apply bg-white/10 text-gold-400;
 }
 
 @utility menu-dropdown-item-inactive {
-  @apply text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5;
+  @apply text-gray-100/70 hover:bg-white/5 hover:text-white;
 }
 
 @utility menu-dropdown-badge {
-  @apply text-success-600 dark:text-success-500 block rounded-full px-2.5 py-0.5 text-xs font-medium uppercase;
+  @apply text-success-400 block rounded-full px-2.5 py-0.5 text-xs font-medium uppercase;
 }
 
 @utility menu-dropdown-badge-active {
-  @apply bg-success-100 dark:bg-success-500/20;
+  @apply bg-success-500/20;
 }
 
 @utility menu-dropdown-badge-inactive {
-  @apply bg-success-50 group-hover:bg-success-100 dark:bg-success-500/15 dark:group-hover:bg-success-500/20;
+  @apply bg-success-500/15 group-hover:bg-success-500/20;
 }
 
 @utility menu-dropdown-badge-pro {
-  @apply text-brand-600 dark:text-brand-500 block rounded-full px-2.5 py-0.5 text-xs font-medium uppercase;
+  @apply text-gold-400 block rounded-full px-2.5 py-0.5 text-xs font-medium uppercase;
 }
 
 @utility menu-dropdown-badge-pro-active {
-  @apply bg-brand-100 dark:bg-brand-500/20;
+  @apply bg-gold-400/20;
 }
 
 @utility menu-dropdown-badge-pro-inactive {
-  @apply bg-brand-50 group-hover:bg-brand-100 dark:bg-brand-500/15 dark:group-hover:bg-brand-500/20;
+  @apply bg-gold-400/15 group-hover:bg-gold-400/20;
 }
 
 @utility no-scrollbar {
@@ -295,7 +408,7 @@ layer(base);
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #344054;
+  background-color: var(--color-gray-800);
 }
 
 @layer utilities {
@@ -330,7 +443,7 @@ layer(base);
 }
 
 .apexcharts-tooltip-marker {
-  margin-right: 6px;
+  margin-inline-end: 6px;
   height: 6px;
   width: 6px;
 }
@@ -360,11 +473,11 @@ layer(base);
   @apply !-translate-y-24;
 }
 #chartTwo .apexcharts-datalabels-group .apexcharts-text {
-  @apply !fill-gray-800 !font-semibold dark:!fill-white/90;
+  @apply !fill-gray-950 !font-bold dark:!fill-gray-100;
 }
 
 #chartDarkStyle .apexcharts-datalabels-group .apexcharts-text {
-  @apply !fill-gray-800 !font-semibold dark:!fill-white/90;
+  @apply !fill-gray-950 !font-bold dark:!fill-gray-100;
 }
 
 #chartSixteen .apexcharts-legend {
@@ -417,7 +530,7 @@ layer(base);
 
 .flatpickr-months .flatpickr-prev-month:hover svg,
 .flatpickr-months .flatpickr-next-month:hover svg {
-  @apply stroke-brand-500;
+  @apply stroke-brand-700 dark:stroke-gold-400;
 }
 .flatpickr-calendar.arrowTop:before,
 .flatpickr-calendar.arrowTop:after {
@@ -500,7 +613,7 @@ span.flatpickr-weekday,
   @apply !bg-none;
 }
 .flatpickr-day.inRange {
-  box-shadow: -5px 0 0 #f9fafb, 5px 0 0 #f9fafb !important;
+  box-shadow: -5px 0 0 var(--color-gray-50), 5px 0 0 var(--color-gray-50) !important;
   @apply dark:!shadow-datepicker;
 }
 .flatpickr-day.inRange,
@@ -541,13 +654,12 @@ span.flatpickr-weekday,
 .flatpickr-day.selected.nextMonthDay,
 .flatpickr-day.startRange.nextMonthDay,
 .flatpickr-day.endRange.nextMonthDay {
-  background: #465fff;
-  @apply !border-brand-500 !bg-brand-500 hover:!border-brand-500 hover:!bg-brand-500;
+  @apply !border-brand-700 !bg-brand-700 hover:!border-brand-800 hover:!bg-brand-800;
 }
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
-  box-shadow: -10px 0 0 #465fff;
+  box-shadow: -10px 0 0 var(--color-brand-700);
 }
 
 .flatpickr-months .flatpickr-prev-month svg,
@@ -606,17 +718,17 @@ span.flatpickr-weekday,
 
 .fc-button-group .fc-button.fc-prev-button:before {
   @apply inline-block mt-1;
-  content: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.0068 6L9.75684 12.25L16.0068 18.5' stroke='%23344054' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E%0A");
+  content: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.0068 6L9.75684 12.25L16.0068 18.5' stroke='%23676864' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E%0A");
 }
 .fc-button-group .fc-button.fc-next-button:before {
   @apply inline-block mt-1;
-  content: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.50684 19L15.7568 12.75L9.50684 6.5' stroke='%23344054' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E%0A");
+  content: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.50684 19L15.7568 12.75L9.50684 6.5' stroke='%23676864' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E%0A");
 }
 .dark .fc-button-group .fc-button.fc-prev-button:before {
-  content: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.0068 6L9.75684 12.25L16.0068 18.5' stroke='%2398A2B3' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E%0A");
+  content: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.0068 6L9.75684 12.25L16.0068 18.5' stroke='%23BBB8B1' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E%0A");
 }
 .dark .fc-button-group .fc-button.fc-next-button:before {
-  content: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.50684 19L15.7568 12.75L9.50684 6.5' stroke='%2398A2B3' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E%0A");
+  content: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.50684 19L15.7568 12.75L9.50684 6.5' stroke='%23BBB8B1' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E%0A");
 }
 .fc-button-group .fc-button .fc-icon {
   @apply hidden;
@@ -641,7 +753,7 @@ html.dark [role="dialog"].fc-classic-Jk3,
 html.dark .fc-popover,
 html.dark .fc-popover.fc-classic-Jk3,
 html.dark .fc-more-popover {
-  background-color: var(--color-gray-900, #111827) !important;
+  background-color: var(--color-gray-950, #131818) !important;
 }
 
 html.dark .fc table,
@@ -649,13 +761,13 @@ html.dark .fc td,
 html.dark .fc th,
 html.dark .fc .fc-scrollgrid,
 html.dark .fc-classic-C1x {
-  border-color: var(--color-gray-800, #1f2937) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .dark .event-fc-color .fc-event-title,
 .dark .event-fc-color .fc-event-time,
 .dark .fc-event-title {
-  color: #ffffff !important;
+  color: var(--color-gray-100, #f0ebe1) !important;
 }
 
 :root[data-color-scheme="dark"],
@@ -666,14 +778,14 @@ html.dark #calendar,
 html.dark full-calendar,
 .dark {
   --fc-classic-background: transparent !important;
-  --fc-classic-border: var(--color-gray-800, #1f2937) !important;
-  --fc-classic-strong-border: var(--color-gray-700, #374151) !important;
-  --fc-classic-foreground: #ffffff !important;
+  --fc-classic-border: rgba(255, 255, 255, 0.1) !important;
+  --fc-classic-strong-border: rgba(255, 255, 255, 0.18) !important;
+  --fc-classic-foreground: var(--color-gray-100, #f0ebe1) !important;
   --fc-classic-faint: rgba(255, 255, 255, 0.04) !important;
   --fc-classic-muted: rgba(255, 255, 255, 0.08) !important;
   --fc-classic-strong: rgba(255, 255, 255, 0.14) !important;
-  --fc-classic-faint-foreground: #9ca3af !important;
-  --fc-classic-muted-foreground: #9ca3af !important;
+  --fc-classic-faint-foreground: var(--color-gray-400, #bbb8b1) !important;
+  --fc-classic-muted-foreground: var(--color-gray-400, #bbb8b1) !important;
   --fc-classic-today: rgba(255, 255, 255, 0.05) !important;
 }
 
@@ -681,7 +793,7 @@ html.dark full-calendar,
 .dark .fc-theme-classic,
 .dark .fc-theme-standard {
   --fc-classic-background: transparent !important;
-  --fc-classic-border: var(--color-gray-800, #1f2937) !important;
+  --fc-classic-border: rgba(255, 255, 255, 0.1) !important;
 }
 
 .dark .fc table,
@@ -692,7 +804,7 @@ html.dark full-calendar,
 .dark .fc .fc-theme-classic th,
 .dark .fc .fc-theme-standard td,
 .dark .fc .fc-theme-standard th {
-  border-color: var(--color-gray-800, #1f2937) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .dark .fc .fc-daygrid-day,
@@ -713,26 +825,26 @@ html.dark full-calendar,
 
 .dark .fc .fc-col-header-cell,
 .dark .fc th {
-  background-color: var(--color-gray-900, #111827) !important;
-  border-color: var(--color-gray-800, #1f2937) !important;
+  background-color: var(--color-gray-950, #131818) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .dark .fc .fc-daygrid-day-number {
-  color: var(--color-gray-400, #9ca3af) !important;
+  color: var(--color-gray-400, #bbb8b1) !important;
 }
 
 .dark .fc .fc-col-header-cell-cushion {
-  color: var(--color-gray-400, #9ca3af) !important;
+  color: var(--color-gray-400, #bbb8b1) !important;
 }
 
 .dark .fc-timegrid-slot-label-frame,
 .dark .fc .fc-timegrid-axis-cushion {
-  color: var(--color-gray-400, #9ca3af) !important;
+  color: var(--color-gray-400, #bbb8b1) !important;
 }
 
 .dark .fc .fc-timegrid-slot-minor {
   border-top-style: dashed !important;
-  border-top-color: var(--color-gray-800, #1f2937) !important;
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .fc-header-toolbar.fc-toolbar .fc-toolbar-chunk:last-child {
@@ -747,7 +859,7 @@ html.dark full-calendar,
   @apply text-gray-900 bg-white dark:bg-gray-800 dark:text-white;
 }
 .fc-theme-standard th {
-  @apply !border-x-0 border-t !border-gray-200 bg-gray-50 !text-left dark:!border-gray-800 dark:bg-gray-900;
+  @apply !border-x-0 border-t !border-gray-200 bg-gray-50 !text-start dark:!border-white/10 dark:bg-gray-950;
 }
 .fc-theme-standard td,
 .fc-theme-standard .fc-scrollgrid {
@@ -778,20 +890,20 @@ html.dark full-calendar,
   @apply text-gray-400 dark:text-white/30;
 }
 .event-fc-color {
-  @apply rounded-lg py-2.5 pl-4 pr-3;
+  @apply rounded-lg py-2.5 ps-4 pe-3;
   direction: ltr !important;
 }
 .event-fc-color .fc-event-title {
   @apply p-0 text-sm font-normal text-gray-700 dark:text-white!;
 }
 .fc-daygrid-event-dot {
-  @apply w-1 h-5 ml-0 mr-3 border-none rounded-sm;
+  @apply w-1 h-5 ms-0 me-3 border-none rounded-sm;
 }
 .fc-event {
   @apply focus:shadow-none;
 }
 .fc-daygrid-event.fc-event-start {
-  @apply !ml-3;
+  @apply !ms-3;
 }
 .event-fc-color.fc-bg-success {
   @apply border-success-50 bg-success-50;
@@ -803,7 +915,7 @@ html.dark full-calendar,
   @apply border-brand-50 bg-brand-50;
 }
 .event-fc-color.fc-bg-warning {
-  @apply border-orange-50 bg-orange-50;
+  @apply border-warning-50 bg-warning-50;
 }
 .event-fc-color.fc-bg-success .fc-daygrid-event-dot {
   @apply bg-success-500;
@@ -815,7 +927,7 @@ html.dark full-calendar,
   @apply bg-brand-500;
 }
 .event-fc-color.fc-bg-warning .fc-daygrid-event-dot {
-  @apply bg-orange-500;
+  @apply bg-warning-500;
 }
 .fc-direction-ltr .fc-timegrid-slot-label-frame {
   @apply px-3 py-1.5 text-left text-sm font-medium text-gray-500 dark:text-gray-400;
@@ -896,7 +1008,7 @@ html.dark full-calendar,
 }
 
 .form-check-warning .form-check-input:checked ~ span {
-  @apply border-orange-500 dark:border-orange-500;
+  @apply border-warning-500 dark:border-warning-500;
 }
 
 .taskCheckbox:checked ~ .box span {
@@ -915,8 +1027,8 @@ html.dark full-calendar,
 
 .task {
   border-radius: 0.75rem;
-  box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
-    0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+  box-shadow: 0px 1px 3px 0px rgba(12, 39, 35, 0.1),
+    0px 1px 2px 0px rgba(12, 39, 35, 0.06);
   opacity: 0.8;
   cursor: grabbing; /* Changes the cursor to indicate dragging */
 }
@@ -924,7 +1036,7 @@ html.dark full-calendar,
 .custom-calendar .fc-h-event {
   background-color: transparent;
   border: none;
-  color: black;
+  color: var(--color-gray-950);
 }
 .fc.fc-media-screen {
   @apply min-h-screen;
@@ -973,7 +1085,7 @@ html.dark full-calendar,
     position: sticky !important;
     top: 56px !important;
     z-index: 10 !important;
-    background-color: #ffffff !important;
+    background-color: var(--color-white, #ffffff) !important;
     margin-bottom: 0 !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;
@@ -982,7 +1094,7 @@ html.dark full-calendar,
   .dark .custom-calendar .fc-multimonth [role="grid"] [id*="month-"],
   .dark .custom-calendar.fc-multimonth [role="grid"] [id*="month-"],
   .dark .custom-calendar [role="grid"].fc-multimonth [id*="month-"] {
-    background-color: #111827 !important;
+    background-color: var(--color-gray-950, #131818) !important;
   }
 
   /* Day Header (SUN MON TUE...) sticks directly below the Month Title */
@@ -1012,7 +1124,7 @@ html.dark full-calendar,
     position: sticky !important;
     top: 92px !important;
     z-index: 9 !important;
-    background-color: #f9fafb !important;
+    background-color: var(--color-gray-50, #f4f1ea) !important;
   }
   .dark
     .custom-calendar:has(.fc-multimonth)
@@ -1052,7 +1164,7 @@ html.dark full-calendar,
     [role="grid"].fc-multimonth
     .fc-multimonth-day-header-row,
   .dark .custom-calendar [role="grid"].fc-multimonth .fc-daygrid-header {
-    background-color: #111827 !important;
+    background-color: var(--color-gray-950, #131818) !important;
   }
 
   /* Reset FullCalendar margin math to avoid whitespace gaps */
@@ -1108,7 +1220,7 @@ html.dark full-calendar,
 code[class*="language-"],
 pre[class*="language-"] {
   text-shadow: none;
-  color: #344054;
+  color: var(--color-gray-900);
   overflow: hidden !important;
   font-size: 14px;
   margin: 0;
@@ -1121,13 +1233,13 @@ pre[class*="language-"] {
 .dark code[class*="language-"],
 .dark pre[class*="language-"] {
   text-shadow: none;
-  color: #98a2b3;
+  color: var(--color-gray-400);
 }
 [data-theme="light"] .language-html {
-  background-color: #ffffff !important;
+  background-color: var(--color-white) !important;
 }
 [data-theme="dark"] .language-html {
-  background-color: #171f2e !important;
+  background-color: var(--color-gray-950) !important;
 }
 .token {
   text-shadow: none;
@@ -1135,38 +1247,56 @@ pre[class*="language-"] {
 }
 .token.doctype-tag,
 .token.name {
-  color: #018001;
+  color: var(--color-brand-700);
 }
-.token.tag {
-  color: #267f99;
+.dark .token.doctype-tag,
+.dark .token.name {
+  color: var(--color-brand-300);
 }
+.token.tag,
 .token.selector {
-  color: #267f99;
+  color: var(--color-brand-600);
+}
+.dark .token.tag,
+.dark .token.selector {
+  color: var(--color-brand-300);
 }
 .token.property {
-  color: #0070c1;
+  color: var(--color-gold-700);
+}
+.dark .token.property {
+  color: var(--color-gold-400);
 }
 .token.language-css {
-  color: #1b00ff;
+  color: var(--color-maroon-700);
+}
+.dark .token.language-css {
+  color: var(--color-maroon-300);
 }
 .token.attr-name {
-  color: #98a2b3;
+  color: var(--color-gray-600);
+}
+.dark .token.attr-name {
+  color: var(--color-gray-400);
 }
 .token.attr-value {
-  color: #a31615;
+  color: var(--color-maroon-700);
+}
+.dark .token.attr-value {
+  color: var(--color-maroon-300);
 }
 .token.punctuation {
-  color: #344054;
+  color: var(--color-gray-700);
 }
 .dark .token.punctuation {
-  color: #98a2b3;
+  color: var(--color-gray-400);
 }
 
 .line-numbers .line-numbers-rows {
-  border-right: 0 !important;
+  border-inline-end: 0 !important;
 }
 pre[class*="language-"].line-numbers {
-  padding-left: 2.8em !important;
+  padding-inline-start: 2.8em !important;
 }
 
 @keyframes fadeIn {

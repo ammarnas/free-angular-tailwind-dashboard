@@ -2,6 +2,7 @@ import { Component, NgZone, ElementRef, ViewChild } from '@angular/core';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map";
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
+import { CHART_FONT, CHART_HEX, isDarkTheme } from '../../charts/chart-theme';
 
 @Component({
   selector: 'app-country-map',
@@ -14,8 +15,19 @@ export class CountryMapComponent {
   constructor(private zone: NgZone) { }
 
   ngOnInit() {
+    const dark = isDarkTheme();
     this.zone.runOutsideAngular(() => {
       this.root = am5.Root.new(this.chartdiv.nativeElement);
+
+      // amCharts defaults to its own font stack and its own palette, so both
+      // are set explicitly here. The built-in DefaultTheme stays applied
+      // underneath; this theme only layers the brand rules on top.
+      const brandTheme = am5.Theme.new(this.root);
+      brandTheme.rule('Label').setAll({
+        fontFamily: CHART_FONT,
+        fill: am5.color(dark ? CHART_HEX.cream : CHART_HEX.brand700),
+      });
+      this.root.setThemes([brandTheme]);
 
       let chart = this.root.container.children.push(
         am5map.MapChart.new(this.root, {
@@ -34,18 +46,20 @@ export class CountryMapComponent {
         })
       );
 
+      // Sequential land fill: the lightest step of the green ramp, with a
+      // warm stone stroke. Hover goes to the Authority green itself (§8).
       polygonSeries.mapPolygons.template.setAll({
         tooltipText: "{name}",
         interactive: true,
-        fill: am5.color(0xE5EAF2),
-        stroke: am5.color(0xD0D5DD),
+        fill: am5.color(dark ? CHART_HEX.brand100 : CHART_HEX.gray200),
+        stroke: am5.color(dark ? CHART_HEX.brand700 : CHART_HEX.gray300),
       });
 
       polygonSeries.mapPolygons.template.states.create("hover", {
-        fill: am5.color(0x465FFF),
+        fill: am5.color(dark ? CHART_HEX.gold400 : CHART_HEX.brand700),
       });
 
-      // Add blue dot markers
+      // Marker dots
       let pointSeries = chart.series.push(
         am5map.MapPointSeries.new(this.root, {})
       );
@@ -65,8 +79,8 @@ export class CountryMapComponent {
 
         let circle = am5.Circle.new(this.root, {
           radius: 6,
-          fill: am5.color(0x465FFF),
-          stroke: am5.color(0xffffff),
+          fill: am5.color(dark ? CHART_HEX.gold400 : CHART_HEX.brand700),
+          stroke: am5.color(CHART_HEX.white),
           strokeWidth: 2,
         });
         circle.set("tooltipText", m.name);
@@ -75,8 +89,8 @@ export class CountryMapComponent {
           am5.Bullet.new(this.root, {
             sprite: am5.Circle.new(this.root, {
               radius: 6,
-              fill: am5.color(0x465FFF),
-              stroke: am5.color(0xffffff),
+              fill: am5.color(dark ? CHART_HEX.gold400 : CHART_HEX.brand700),
+              stroke: am5.color(CHART_HEX.white),
               strokeWidth: 2,
               tooltipText: m.name
             })
