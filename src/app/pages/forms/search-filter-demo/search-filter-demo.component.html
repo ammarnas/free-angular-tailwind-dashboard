@@ -1,0 +1,60 @@
+<div>
+  <app-page-breadcrumb pageTitle="Search & Filter" />
+
+  <div class="space-y-6">
+    <!-- Standalone panel, all field types, state mirrored into the query string -->
+    <app-search-filter
+      [config]="fullConfig"
+      [syncToUrl]="true"
+      (search)="onSearch('Order filters', $event)"
+      (reset)="onReset('Order filters', $event)"
+    ></app-search-filter>
+
+    <div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
+      <!-- Compact variant, nested inside a component card -->
+      <app-component-card
+        title="Compact bar"
+        desc="Two fields, two columns, rendered without its own card chrome."
+      >
+        <app-search-filter
+          [config]="compactConfig"
+          [bare]="true"
+          (search)="onSearch('Quick search', $event)"
+          (reset)="onReset('Quick search', $event)"
+        ></app-search-filter>
+      </app-component-card>
+
+      <!-- Emitted payload -->
+      <app-component-card
+        title="Emitted payload"
+        desc="Only non-empty criteria are emitted. Nothing fires until Search or Reset is used."
+      >
+        @if (lastPayload) {
+        <div>
+          <p class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-400">
+            {{ lastEvent }}
+          </p>
+          <pre
+            class="custom-scrollbar max-h-72 overflow-auto rounded-lg bg-gray-50 p-4 text-theme-xs text-gray-700 dark:bg-gray-950 dark:text-gray-300"
+          >{{ lastPayload | json }}</pre>
+        </div>
+        } @else {
+        <p class="text-sm text-gray-700 dark:text-gray-400">
+          Pick some criteria, then press Search (or Enter) to see the payload.
+        </p>
+        }
+
+        @if (eventLog.length) {
+        <div class="border-t border-gray-200 pt-4 dark:border-white/10">
+          <p class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-400">Event log</p>
+          <ul class="space-y-1">
+            @for (entry of eventLog; track $index) {
+            <li class="text-theme-xs text-gray-700 dark:text-gray-400">{{ entry }}</li>
+            }
+          </ul>
+        </div>
+        }
+      </app-component-card>
+    </div>
+  </div>
+</div>

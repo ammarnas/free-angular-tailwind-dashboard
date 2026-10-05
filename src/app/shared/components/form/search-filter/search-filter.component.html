@@ -1,0 +1,194 @@
+<div
+  [ngClass]="
+    bare
+      ? className
+      : 'rounded-2xl border border-gray-300 bg-white p-4 sm:p-6 dark:border-white/10 dark:bg-white/[0.03] ' + className
+  "
+>
+  <!-- Header: title, active-criteria badge, optional collapse toggle -->
+  <div class="flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <h3 class="text-base font-medium text-gray-950 dark:text-gray-100">
+        {{ title }}
+      </h3>
+      @if (activeCount > 0) {
+      <span
+        class="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-theme-xs font-medium text-brand-700 dark:bg-brand-500/15 dark:text-gold-400"
+      >
+        {{ activeCount }} active
+      </span>
+      }
+    </div>
+
+    @if (collapsible) {
+    <button
+      type="button"
+      (click)="toggleCollapse()"
+      [attr.aria-expanded]="!isCollapsed"
+      aria-label="Toggle filters"
+      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-gray-700 transition hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.05] dark:hover:text-gray-300"
+    >
+      <span
+        class="flex items-center transition-transform"
+        [ngClass]="{ 'rotate-180': !isCollapsed }"
+        [innerHTML]="chevronIcon | safeHtml"
+      ></span>
+    </button>
+    }
+  </div>
+
+  @if (!isCollapsed) {
+  <!-- Field grid. Enter anywhere inside it runs the search. -->
+  <div class="mt-5" [ngClass]="gridClasses" (keydown.enter)="onSearch()">
+    @for (field of fields; track field.key) {
+    <div [ngClass]="colSpanClasses(field)">
+      @if (field.label) {
+      <app-label [for]="fieldId(field)">{{ field.label }}</app-label>
+      }
+
+      @switch (field.type) {
+
+      @case ('text') {
+      <app-input-field
+        type="text"
+        [id]="fieldId(field)"
+        [name]="field.key"
+        [placeholder]="field.placeholder || ''"
+        [value]="scalarValue(field)"
+        [disabled]="!!field.disabled"
+        (valueChange)="setText(field, $event)"
+      ></app-input-field>
+      }
+
+      @case ('number') {
+      <app-input-field
+        type="number"
+        [id]="fieldId(field)"
+        [name]="field.key"
+        [placeholder]="field.placeholder || ''"
+        [value]="scalarValue(field)"
+        [min]="field.min"
+        [max]="field.max"
+        [step]="field.step"
+        [disabled]="!!field.disabled"
+        (valueChange)="setNumber(field, $event)"
+      ></app-input-field>
+      }
+
+      @case ('select') {
+      <app-select
+        [options]="field.options || []"
+        [value]="selectValue(field)"
+        [placeholder]="field.placeholder || 'Select an option'"
+        [disabled]="!!field.disabled"
+        (valueChange)="setText(field, $event)"
+      ></app-select>
+      }
+
+      @case ('multiselect') {
+      <app-multi-select
+        [options]="multiOptions[field.key] || []"
+        [selected]="multiValue(field)"
+        [placeholder]="field.placeholder || 'Select options'"
+        [disabled]="!!field.disabled"
+        (selectionChange)="setMulti(field, $event)"
+      ></app-multi-select>
+      }
+
+      @case ('date') {
+      <app-date-picker
+        mode="single"
+        [id]="fieldId(field)"
+        [placeholder]="field.placeholder || 'Select date'"
+        [defaultDate]="dateDefaults[field.key]"
+        [disabled]="!!field.disabled"
+        (dateChange)="setDate(field, $event)"
+      ></app-date-picker>
+      }
+
+      @case ('daterange') {
+      <app-date-picker
+        mode="range"
+        [id]="fieldId(field)"
+        [placeholder]="field.placeholder || 'Select date range'"
+        [defaultDate]="dateDefaults[field.key]"
+        [disabled]="!!field.disabled"
+        (dateChange)="setDate(field, $event)"
+      ></app-date-picker>
+      }
+
+      @case ('numberrange') {
+      <div class="flex items-center gap-2">
+        <app-input-field
+          type="number"
+          [id]="fieldId(field) + '-from'"
+          [name]="field.key + 'From'"
+          [placeholder]="field.fromPlaceholder || 'Min'"
+          [value]="rangeEdge(field, 'from')"
+          [min]="field.min"
+          [max]="field.max"
+          [step]="field.step"
+          [disabled]="!!field.disabled"
+          (valueChange)="setNumberRange(field, 'from', $event)"
+        ></app-input-field>
+        <span class="shrink-0 text-sm text-gray-700 dark:text-gray-500">&ndash;</span>
+        <app-input-field
+          type="number"
+          [id]="fieldId(field) + '-to'"
+          [name]="field.key + 'To'"
+          [placeholder]="field.toPlaceholder || 'Max'"
+          [value]="rangeEdge(field, 'to')"
+          [min]="field.min"
+          [max]="field.max"
+          [step]="field.step"
+          [disabled]="!!field.disabled"
+          (valueChange)="setNumberRange(field, 'to', $event)"
+        ></app-input-field>
+      </div>
+      }
+
+      @case ('boolean') {
+      <div class="flex h-11 items-center">
+        <app-checkbox
+          [id]="fieldId(field)"
+          [checked]="booleanValue(field)"
+          [disabled]="!!field.disabled"
+          (checkedChange)="setBoolean(field, $event)"
+        ></app-checkbox>
+      </div>
+      }
+
+      }
+
+      @if (field.hint) {
+      <p class="mt-1.5 text-xs text-gray-700 dark:text-gray-400">{{ field.hint }}</p>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- Actions -->
+  <div
+    class="mt-5 flex flex-wrap items-center justify-end gap-3 border-t border-gray-200 pt-5 dark:border-white/10"
+  >
+    <app-button
+      size="sm"
+      variant="outline"
+      [disabled]="loading"
+      [startIcon]="resetIcon"
+      (btnClick)="onReset()"
+    >
+      {{ resetLabel }}
+    </app-button>
+    <app-button
+      size="sm"
+      variant="primary"
+      [disabled]="loading"
+      [startIcon]="loading ? spinnerIcon : searchIcon"
+      (btnClick)="onSearch()"
+    >
+      {{ searchLabel }}
+    </app-button>
+  </div>
+  }
+</div>

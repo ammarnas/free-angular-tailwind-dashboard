@@ -16,6 +16,7 @@ export class DatePickerComponent {
   @Input() defaultDate?: string | Date | string[] | Date[];
   @Input() label?: string;
   @Input() placeholder?: string;
+  @Input() disabled: boolean = false;
   @Output() dateChange = new EventEmitter<any>();
 
   @ViewChild('dateInput', { static: false }) dateInput!: ElementRef<HTMLInputElement>;
@@ -26,6 +27,7 @@ export class DatePickerComponent {
     this.flatpickrInstance = flatpickr(this.dateInput.nativeElement, {
       mode: this.mode,
       static: true,
+      clickOpens: !this.disabled,
       monthSelectorType: 'static',
       dateFormat: 'Y-m-d',
       defaultDate: this.defaultDate,
@@ -33,6 +35,11 @@ export class DatePickerComponent {
         this.dateChange.emit({ selectedDates, dateStr, instance });
       }
     });
+  }
+
+  /** Empties the input without re-emitting `dateChange`. */
+  clear() {
+    this.flatpickrInstance?.clear(false);
   }
 
   ngOnDestroy() {
