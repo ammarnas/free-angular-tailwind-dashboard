@@ -59,6 +59,21 @@ The codebase uses **zero** signals, `input()`/`output()` functions, or `inject()
 - Dropdowns implement click-outside manually: a `document` `mousedown` listener in `AfterViewInit`/`OnDestroy` that ignores clicks on `.dropdown-toggle`. Triggers must carry that class or the dropdown closes on its own toggle. `@angular/cdk` is a dependency but is not used anywhere in `src/`.
 - Pages wrap content in `<app-page-breadcrumb [pageTitle]>` and `<app-component-card [title]>`.
 
+### Tables: use @tanstack/angular-table
+
+**`@tanstack/angular-table` (v9) is the primary table implementation for this repo.** Build any new table — and any table being reworked — on it. Do not hand-roll a new `@for`-over-an-array table.
+
+The existing tables predate it: `src/app/shared/components/ui/table/` (`app-table`, `app-table-header`, `app-table-body`, `app-table-row`, `app-table-cell`) are thin styling wrappers over `<table>`/`<thead>`/`<tbody>`/`<tr>`/`<td>`, and the ~13 feature tables under `shared/components/tables/`, `ecommerce/`, `invoice/`, `transactions/` loop over hardcoded arrays with no sorting, filtering, or pagination. Keep using the `ui/table` primitives for markup and Tailwind tokens; let TanStack own the row model.
+
+v9's API is **not** v8's — there is no `createAngularTable` and no `getCoreRowModel()` option:
+
+- `injectTable(() => options)` creates the instance. The factory is re-evaluated whenever a signal read inside it changes, so read reactive state (`data()`, sorting/pagination signals) **inside** it and keep `columns` and the feature set as stable references **outside** it.
+- Features are opt-in: `tableFeatures({ rowSortingFeature, rowPaginationFeature, ... })`, or `tableFeatures(stockFeatures)` for everything. Pass the result as `features`. `ColumnDef`/`createColumnHelper` are generic over `typeof features`.
+- Render cells with the `FlexRender` import and its structural directives — `<td *flexRenderCell="cell; let cell">{{ cell }}</td>`, plus `*flexRenderHeader` / `*flexRenderFooter`. `flexRenderComponent(MyComponent, { inputs: {...} })` renders an Angular component into a cell; `injectTableCellContext()` / `injectTableHeaderContext()` / `injectTableContext()` reach the cell, header, or table from inside such a component.
+- `@tanstack/angular-table` re-exports all of `@tanstack/table-core`, so import types and helpers from the adapter, not the core package.
+
+This is the one place where signals are expected: the adapter is signal-based, so table state belongs in `signal()`/`computed()` even though the rest of the codebase is `BehaviorSubject`-based (see below). Confine signals to the table component — services stay on observables.
+
 ### Styling
 
 Tailwind CSS v4 via PostCSS (`.postcssrc.json`) — all configuration lives in `src/styles.css` (~1200 lines) and there is deliberately no `tailwind.config.js`. Structure of that file: Google Fonts + `tailwindcss` + vendor CSS imports (Swiper, Flatpickr, FullCalendar) → `@custom-variant dark (&:is(.dark *))` → `@theme` tokens (fonts, breakpoints including `2xsm`/`xsm`/`3xl`, `text-title-*`/`text-theme-*` scales, `brand`/`gray`/`blue-light`/`orange`/`success`/`error`/`warning` ramps, `shadow-theme-*`) → `@layer base` → utilities and heavy third-party overrides (ApexCharts, FullCalendar, Flatpickr) written with `@apply` and `!` importance.
@@ -67,6 +82,7 @@ Because `--font-*` and `--breakpoint-*` are reset to `initial`, Tailwind's defau
 
 ### Third-party integrations
 
+- **TanStack Table 9** — `@tanstack/angular-table`, the primary table implementation. See "Tables" above.
 - **ApexCharts** — via `ng-apexcharts` components, plus `apexcharts.min.js` injected as a global script in `angular.json`.
 - **FullCalendar 7** — `src/app/pages/calender/` builds `CalendarOptions` with the dayGrid/timeGrid/multiMonth/interaction/classic-theme plugins and drives an edit modal.
 - **amCharts 5** — `ecommerce/country-map` renders a world map; chart setup runs inside `NgZone.runOutsideAngular` to keep it out of change detection. Follow that pattern for any new amCharts component.
