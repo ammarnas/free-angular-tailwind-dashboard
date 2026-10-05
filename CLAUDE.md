@@ -63,7 +63,9 @@ The codebase uses **zero** signals, `input()`/`output()` functions, or `inject()
 
 **`@tanstack/angular-table` (v9) is the primary table implementation for this repo.** Build any new table — and any table being reworked — on it. Do not hand-roll a new `@for`-over-an-array table.
 
-The existing tables predate it: `src/app/shared/components/ui/table/` (`app-table`, `app-table-header`, `app-table-body`, `app-table-row`, `app-table-cell`) are thin styling wrappers over `<table>`/`<thead>`/`<tbody>`/`<tr>`/`<td>`, and the ~13 feature tables under `shared/components/tables/`, `ecommerce/`, `invoice/`, `transactions/` loop over hardcoded arrays with no sorting, filtering, or pagination. Keep using the `ui/table` primitives for markup and Tailwind tokens; let TanStack own the row model.
+Reference implementation: `src/app/shared/components/tables/data-table/` (route `/data-table`, page in `pages/tables/data-table/`) — sorting, global filter, pagination, and a component cell.
+
+The existing tables predate it: the ~13 feature tables under `shared/components/tables/`, `ecommerce/`, `invoice/`, `transactions/` loop over hardcoded arrays with no sorting, filtering, or pagination. They write raw `<table>`/`<thead>`/`<tr>`/`<td>` markup with Tailwind tokens — copy that markup and let TanStack own the row model. (`src/app/shared/components/ui/table/` holds `app-table`/`app-table-header`/`app-table-body`/`app-table-row`/`app-table-cell` wrappers, but **nothing imports them**; they are dead code, and wrapping `<tr>`/`<td>` in a custom element breaks table layout anyway.)
 
 v9's API is **not** v8's — there is no `createAngularTable` and no `getCoreRowModel()` option:
 

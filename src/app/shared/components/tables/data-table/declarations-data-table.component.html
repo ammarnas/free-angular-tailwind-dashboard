@@ -1,0 +1,156 @@
+<div class="space-y-5">
+  <!-- Toolbar: global filter -->
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="w-full sm:max-w-xs">
+      <app-input-field
+        type="text"
+        id="declaration-search"
+        name="declaration-search"
+        placeholder="Search reference, trader or port..."
+        [value]="globalFilter()"
+        (valueChange)="onSearch($event)"
+      ></app-input-field>
+    </div>
+    <p class="text-theme-sm text-gray-700 dark:text-gray-400">
+      {{ filteredRowCount() }} of {{ data().length }} declarations
+    </p>
+  </div>
+
+  <!-- Table -->
+  <div
+    class="overflow-hidden rounded-xl border border-gray-300 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]"
+  >
+    <div class="max-w-full overflow-x-auto">
+      <table class="min-w-full">
+        <thead class="border-b border-gray-200 dark:border-white/[0.05]">
+          @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+          <tr>
+            @for (header of headerGroup.headers; track header.id) {
+            <th class="px-5 py-3 text-start">
+              @if (header.column.getCanSort()) {
+              <button
+                type="button"
+                (click)="header.column.toggleSorting()"
+                [attr.aria-label]="'Sort by ' + header.column.id"
+                class="flex items-center gap-1.5 font-medium text-gray-700 text-theme-xs transition hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-100"
+              >
+                <span>
+                  <ng-container *flexRenderHeader="header; let label">{{ label }}</ng-container>
+                </span>
+                <svg
+                  viewBox="0 0 12 12"
+                  class="h-3 w-3 shrink-0 fill-current transition"
+                  [ngClass]="{
+                    'opacity-30': !header.column.getIsSorted(),
+                    'rotate-180': header.column.getIsSorted() === 'desc'
+                  }"
+                  aria-hidden="true"
+                >
+                  <path d="M6 2.25 9.75 8.25H2.25z" />
+                </svg>
+              </button>
+              } @else {
+              <span class="font-medium text-gray-700 text-theme-xs dark:text-gray-400">
+                <ng-container *flexRenderHeader="header; let label">{{ label }}</ng-container>
+              </span>
+              }
+            </th>
+            }
+          </tr>
+          }
+        </thead>
+
+        <tbody class="divide-y divide-gray-100 dark:divide-white/[0.05]">
+          @for (row of table.getRowModel().rows; track row.id) {
+          <tr class="transition hover:bg-gray-50 dark:hover:bg-white/[0.02]">
+            @for (cell of row.getAllCells(); track cell.id) {
+            <td class="px-5 py-4 text-gray-700 text-start text-theme-sm dark:text-gray-400">
+              <ng-container *flexRenderCell="cell; let value">{{ value }}</ng-container>
+            </td>
+            }
+          </tr>
+          } @empty {
+          <tr>
+            <td
+              [attr.colspan]="table.getAllColumns().length"
+              class="px-5 py-10 text-center text-gray-700 text-theme-sm dark:text-gray-400"
+            >
+              No declarations match this search.
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex items-center gap-3">
+      <label
+        for="declaration-page-size"
+        class="text-theme-sm text-gray-700 dark:text-gray-400"
+      >
+        Rows per page
+      </label>
+      <select
+        id="declaration-page-size"
+        (change)="onPageSizeChange($event)"
+        class="h-10 appearance-none rounded-lg border border-gray-300 bg-transparent px-3 py-2 text-sm text-gray-950 shadow-theme-xs focus:border-brand-700 focus:outline-hidden focus:ring-3 focus:ring-brand-500/20 dark:border-white/10 dark:bg-gray-950 dark:text-gray-100 dark:focus:border-gold-400"
+      >
+        @for (option of pageSizeOptions; track option) {
+        <option [value]="option" [selected]="option === pageSize()">{{ option }}</option>
+        }
+      </select>
+      <span class="text-theme-sm text-gray-700 dark:text-gray-400">
+        {{ firstRowOnPage() }}&ndash;{{ lastRowOnPage() }} of {{ filteredRowCount() }}
+      </span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        (click)="table.previousPage()"
+        [disabled]="!table.getCanPreviousPage()"
+        aria-label="Previous page"
+        class="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:text-gray-400 dark:hover:bg-white/[0.05]"
+      >
+        <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current rtl:rotate-180" aria-hidden="true">
+          <path
+            d="M14.78 5.47a.75.75 0 0 1 0 1.06L9.31 12l5.47 5.47a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z"
+          />
+        </svg>
+      </button>
+
+      @for (page of table.getPageOptions(); track page) {
+      <button
+        type="button"
+        (click)="table.setPageIndex(page)"
+        [attr.aria-current]="page === pageIndex() ? 'page' : null"
+        [ngClass]="
+          page === pageIndex()
+            ? 'bg-brand-700 text-white dark:bg-gold-400 dark:text-brand-900'
+            : 'border border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-white/10 dark:text-gray-400 dark:hover:bg-white/[0.05]'
+        "
+        class="flex h-9 min-w-9 items-center justify-center rounded-lg px-2 text-theme-sm font-medium transition"
+      >
+        {{ page + 1 }}
+      </button>
+      }
+
+      <button
+        type="button"
+        (click)="table.nextPage()"
+        [disabled]="!table.getCanNextPage()"
+        aria-label="Next page"
+        class="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:text-gray-400 dark:hover:bg-white/[0.05]"
+      >
+        <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current rtl:rotate-180" aria-hidden="true">
+          <path
+            d="M9.22 5.47a.75.75 0 0 1 1.06 0l6 6a.75.75 0 0 1 0 1.06l-6 6a.75.75 0 1 1-1.06-1.06L14.69 12 9.22 6.53a.75.75 0 0 1 0-1.06Z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

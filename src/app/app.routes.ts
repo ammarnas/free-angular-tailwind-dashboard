@@ -4,6 +4,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { FormElementsComponent } from './pages/forms/form-elements/form-elements.component';
 import { SearchFilterDemoComponent } from './pages/forms/search-filter-demo/search-filter-demo.component';
 import { BasicTablesComponent } from './pages/tables/basic-tables/basic-tables.component';
+import { DataTableComponent } from './pages/tables/data-table/data-table.component';
 import { BlankComponent } from './pages/blank/blank.component';
 import { NotFoundComponent } from './pages/other-page/not-found/not-found.component';
 import { AppLayoutComponent } from './shared/layout/app-layout/app-layout.component';
@@ -56,6 +57,11 @@ export const routes: Routes = [
         path:'basic-tables',
         component:BasicTablesComponent,
         title:'Basic Tables | الهيئة العامة للمنافذ والجمارك'
+      },
+      {
+        path:'data-table',
+        component:DataTableComponent,
+        title:'Data Table | الهيئة العامة للمنافذ والجمارك'
       },
       {
         path:'blank',
