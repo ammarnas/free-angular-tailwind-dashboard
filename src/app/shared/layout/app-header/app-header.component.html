@@ -8,7 +8,7 @@
         [ngClass]="{
           'bg-gray-100 dark:bg-white/[0.03]': isMobileOpen$ | async
         }"
-        (click)="handleToggle()" aria-label="Toggle Sidebar">
+        (click)="handleToggle()" [attr.aria-label]="'header.toggleSidebar' | translate">
         @if (isMobileOpen$ | async) {
           <!-- Cross Icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -44,7 +44,7 @@
           height="36"
         />
       </a>
-      <button (click)="toggleApplicationMenu()"
+      <button (click)="toggleApplicationMenu()" [attr.aria-label]="'header.applicationMenu' | translate"
         class="flex items-center justify-center w-10 h-10 text-gray-700 rounded-lg z-99999 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/5 xl:hidden">
         <!-- Dots Icon -->
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -64,7 +64,7 @@
                   fill="" />
               </svg>
             </span>
-            <input #searchInput type="text" placeholder="ابحث أو اكتب أمرًا..."
+            <input #searchInput type="text" [placeholder]="'header.searchPlaceholder' | translate"
               class="h-11 w-full rounded-lg border border-gray-300 bg-transparent py-2.5 ps-12 pe-14 text-sm text-gray-950 shadow-theme-xs placeholder:text-gray-600 focus:border-brand-700 focus:outline-hidden focus:ring-3 focus:ring-gold-400/35 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-100 dark:placeholder:text-gray-400 dark:focus:border-gold-400 xl:w-[430px]" />
             <button
               class="absolute end-2.5 top-1/2 inline-flex -translate-y-1/2 items-center gap-0.5 rounded-lg border border-gray-300 bg-gray-50 px-[7px] py-[4.5px] text-xs text-gray-700 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-400">

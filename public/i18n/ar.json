@@ -1,0 +1,57 @@
+{
+  "header": {
+    "toggleSidebar": "إظهار القائمة الجانبية",
+    "applicationMenu": "قائمة التطبيق",
+    "searchPlaceholder": "ابحث أو اكتب أمرًا..."
+  },
+  "sidebar": {
+    "sections": {
+      "menu": "القائمة",
+      "others": "أخرى"
+    },
+    "badges": {
+      "new": "جديد",
+      "pro": "مدفوع"
+    },
+    "nav": {
+      "dashboard": "لوحة التحكم",
+      "ecommerce": "التجارة الإلكترونية",
+      "calendar": "التقويم",
+      "userProfile": "الملف الشخصي",
+      "forms": "النماذج",
+      "formElements": "عناصر النماذج",
+      "searchFilter": "البحث والتصفية",
+      "tables": "الجداول",
+      "basicTables": "جداول أساسية",
+      "dataTable": "جدول البيانات",
+      "pages": "الصفحات",
+      "blankPage": "صفحة فارغة",
+      "error404": "خطأ 404",
+      "charts": "المخططات",
+      "lineChart": "مخطط خطي",
+      "barChart": "مخطط أعمدة",
+      "uiElements": "عناصر الواجهة",
+      "alerts": "التنبيهات",
+      "avatar": "الصور الرمزية",
+      "badge": "الشارات",
+      "buttons": "الأزرار",
+      "images": "الصور",
+      "videos": "الفيديوهات",
+      "authentication": "المصادقة",
+      "signIn": "تسجيل الدخول",
+      "signUp": "إنشاء حساب"
+    },
+    "widget": {
+      "title": "بوابة المنافذ",
+      "body": "منظومة تشغيلية موحدة لإدارة المنافذ والإجراءات الجمركية.",
+      "cta": "الدليل التشغيلي"
+    }
+  },
+  "userDropdown": {
+    "editProfile": "تعديل الملف الشخصي",
+    "accountSettings": "إعدادات الحساب",
+    "support": "الدعم",
+    "language": "اللغة",
+    "signOut": "تسجيل الخروج"
+  }
+}

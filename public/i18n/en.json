@@ -1,0 +1,57 @@
+{
+  "header": {
+    "toggleSidebar": "Toggle sidebar",
+    "applicationMenu": "Application menu",
+    "searchPlaceholder": "Search or type a command..."
+  },
+  "sidebar": {
+    "sections": {
+      "menu": "Menu",
+      "others": "Others"
+    },
+    "badges": {
+      "new": "new",
+      "pro": "pro"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "ecommerce": "Ecommerce",
+      "calendar": "Calendar",
+      "userProfile": "User Profile",
+      "forms": "Forms",
+      "formElements": "Form Elements",
+      "searchFilter": "Search & Filter",
+      "tables": "Tables",
+      "basicTables": "Basic Tables",
+      "dataTable": "Data Table",
+      "pages": "Pages",
+      "blankPage": "Blank Page",
+      "error404": "404 Error",
+      "charts": "Charts",
+      "lineChart": "Line Chart",
+      "barChart": "Bar Chart",
+      "uiElements": "UI Elements",
+      "alerts": "Alerts",
+      "avatar": "Avatar",
+      "badge": "Badge",
+      "buttons": "Buttons",
+      "images": "Images",
+      "videos": "Videos",
+      "authentication": "Authentication",
+      "signIn": "Sign In",
+      "signUp": "Sign Up"
+    },
+    "widget": {
+      "title": "Borders Portal",
+      "body": "A unified operating platform for managing border crossings and customs procedures.",
+      "cta": "Operations Guide"
+    }
+  },
+  "userDropdown": {
+    "editProfile": "Edit profile",
+    "accountSettings": "Account settings",
+    "support": "Support",
+    "language": "Language",
+    "signOut": "Sign out"
+  }
+}

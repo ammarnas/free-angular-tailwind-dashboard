@@ -33,10 +33,12 @@ src/
 │   │   │   ├── ui/               # Core UI primitives (alert, avatar, badge, button, modal, dropdown, tabs)
 │   │   │   └── user-profile/     # Profile widgets (user-meta-card, user-address-card)
 │   │   ├── layout/               # Master layouts & navigation shells (app-layout, app-header, app-sidebar, backdrop)
-│   │   └── services/             # Core singleton services (theme.service, sidebar.service, modal.service)
-│   ├── app.component.ts          # Root component (handles RTL persistence and initialization)
-│   ├── app.config.ts             # Application configuration & providers (router, change detection)
+│   │   └── services/             # Core singleton services (theme, sidebar, modal, language)
+│   ├── app.component.ts          # Root component (boots LanguageService, which restores locale + direction)
+│   ├── app.config.ts             # Application configuration & providers (router, change detection, ngx-translate)
 │   └── app.routes.ts             # Application routing definitions
+├── public/
+│   └── i18n/                     # ngx-translate catalogues: ar.json, en.json, es.json, de.json
 ├── styles.css                    # Tailwind CSS v4 theme (@theme), global utility classes & 3rd party overrides
 ├── main.ts                       # Angular bootstrap entry point
 └── index.html                    # Root HTML document
@@ -53,11 +55,14 @@ src/
   - `ThemeService`: Reactive RxJS `BehaviorSubject` for `light`/`dark` theme management synced with `localStorage`, `document.documentElement` (`.dark` class, `data-theme`, `color-scheme`).
   - `SidebarService`: Manages sidebar expand/collapse, mobile drawer visibility, and hover state (`isExpanded$`, `isMobileOpen$`, `isHovered$`).
   - `ModalService`: Synchronous & observable state handler for reusable modal dialogs.
+  - `LanguageService`: `BehaviorSubject`-backed `locale$`/`direction$`, the list of offered languages, and the only writer of `localStorage['locale']` and `<html dir|lang>`. Drives `TranslateService.use()`.
 - **RTL & Localization Rules**:
-  - The Free version uses **English text strings directly** across all components — do **NOT** install or use multi-language packages (`TranslatePipe`, `translate`, `i18n.json`).
-  - RTL mode is driven by setting `dir="rtl"` on `<html>` and saving to `localStorage.setItem('dir', 'rtl')`, toggled via the language menu in `UserDropdownComponent` and restored on startup in `AppComponent`.
+  - **`@ngx-translate/core` v18 is the translation layer.** Copy in the layout shell goes through `TranslatePipe` against the JSON catalogues in `public/i18n/<locale>.json`; the rest of the pages still hold literal strings and are being migrated.
+  - `LanguageService` (`shared/services/language.service.ts`) is the single owner of locale *and* direction. Call `setLocale()` — never write `localStorage['dir']` or `document.documentElement.dir` from a component.
+  - Locale is persisted to `localStorage['locale']` (`dir` is still mirrored for backwards compatibility) and applied as `dir`/`lang` on `<html>`. Arabic is the default, so RTL is the default.
   - All components must provide full RTL layout support using CSS logical properties.
 - **Third-Party Libraries**:
+  - **ngx-translate** (`@ngx-translate/core`, `@ngx-translate/http-loader`): runtime i18n, catalogues loaded over HTTP from `/i18n/`.
   - **ApexCharts & ng-apexcharts**: Interactive charts and data visualizations.
   - **FullCalendar** (`@fullcalendar/angular`): Event calendar with DayGrid, TimeGrid, and Interaction plugins.
   - **Flatpickr**: Advanced date and time pickers.
@@ -128,7 +133,8 @@ src/
 ## Don'ts
 
 - Don't install new NPM dependencies or packages without asking the user.
-- Don't add multi-language translation libraries or `TranslatePipe` to the free version — keep text strings in English directly.
+- Don't hardcode user-facing copy in the layout shell (header, sidebar, user dropdown) — add a key to every `public/i18n/*.json` and render it through `TranslatePipe`. The four catalogues must stay in key parity.
+- Don't set `document.documentElement.dir`/`lang` or touch `localStorage['dir']` from a component — go through `LanguageService.setLocale()`.
 - Don't create `tailwind.config.js` — Tailwind CSS v4 configuration belongs in `src/styles.css`.
 - Don't edit files in other projects (`tailadmin-html-pro`, `tailadmin-laravel-pro`, `tailadmin-angular-pro`) unless explicitly instructed.
 - Don't use legacy Angular syntax (`*ngIf`, `*ngFor`, `*ngSwitch`) — use modern `@if`, `@for`, `@switch` control flow.

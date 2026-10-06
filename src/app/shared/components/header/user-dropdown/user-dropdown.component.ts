@@ -1,65 +1,34 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
-export interface Language {
-  id: string;
-  name: string;
-  shortName: string;
-  flag: string;
-  badge?: string;
-}
+import { TranslatePipe } from '@ngx-translate/core';
+import { Language, LanguageService, Locale } from '../../../services/language.service';
 
 @Component({
   selector: 'app-user-dropdown',
   standalone: true,
   templateUrl: './user-dropdown.component.html',
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule, TranslatePipe]
 })
-export class UserDropdownComponent implements OnInit {
+export class UserDropdownComponent {
   isOpen = false;
   subDropdownOpen = false;
-  currentLocale = 'ar';
 
-  languages: Language[] = [
-    {
-      id: 'ar',
-      name: 'العربية',
-      shortName: 'العربية',
-      flag: 'flag-sa.svg',
-      badge: 'RTL',
-    },
-    {
-      id: 'en',
-      name: 'English',
-      shortName: 'English',
-      flag: 'flag-us.svg',
-    },
-    {
-      id: 'es',
-      name: 'Español',
-      shortName: 'Español',
-      flag: 'flag-es.svg',
-    },
-    {
-      id: 'de',
-      name: 'Deutsch',
-      shortName: 'Deutsch',
-      flag: 'flag-de.svg',
-    },
-  ];
+  constructor(
+    private elementRef: ElementRef,
+    private languageService: LanguageService
+  ) {}
 
-  constructor(private elementRef: ElementRef) {}
+  get languages(): Language[] {
+    return this.languageService.languages;
+  }
 
-  ngOnInit(): void {
-    // Arabic-first: anything other than a stored `ltr` resolves to RTL.
-    const isLtr = localStorage.getItem('dir') === 'ltr';
-    this.currentLocale = isLtr ? 'en' : 'ar';
-    this.applyDirection(isLtr ? 'ltr' : 'rtl');
+  get currentLocale(): Locale {
+    return this.languageService.locale;
   }
 
   get currentLang(): Language {
-    return this.languages.find((l) => l.id === this.currentLocale) || this.languages[0];
+    return this.languageService.currentLanguage;
   }
 
   toggleDropdown(event?: Event): void {
@@ -80,18 +49,10 @@ export class UserDropdownComponent implements OnInit {
     this.subDropdownOpen = !this.subDropdownOpen;
   }
 
-  selectLanguage(id: string, event?: Event): void {
+  selectLanguage(id: Locale, event?: Event): void {
     event?.stopPropagation();
-    this.currentLocale = id;
-    const dir = id === 'ar' ? 'rtl' : 'ltr';
-    localStorage.setItem('dir', dir);
-    this.applyDirection(dir);
+    this.languageService.setLocale(id);
     this.closeDropdown();
-  }
-
-  private applyDirection(dir: 'rtl' | 'ltr'): void {
-    document.documentElement.setAttribute('dir', dir);
-    document.documentElement.setAttribute('lang', this.currentLocale);
   }
 
   @HostListener('document:click', ['$event'])

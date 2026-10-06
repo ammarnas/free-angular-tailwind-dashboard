@@ -26,7 +26,7 @@ npm test             # ng test (Karma + Jasmine)
 
 ## Architecture
 
-Standalone-component Angular 22 app bootstrapped in `src/main.ts` (which also registers Swiper custom elements globally) with providers in `src/app/app.config.ts` — zone-based change detection with `eventCoalescing`, plus `provideRouter`. No HTTP client, no interceptors, no guards: all page data is hardcoded in component class fields. This is a UI template, not a data-driven app.
+Standalone-component Angular 22 app bootstrapped in `src/main.ts` (which also registers Swiper custom elements globally) with providers in `src/app/app.config.ts` — zone-based change detection with `eventCoalescing`, `provideRouter`, `provideHttpClient`, and `provideTranslateService`. No interceptors and no guards; the HTTP client exists only so ngx-translate can fetch its catalogues — all page data is still hardcoded in component class fields. This is a UI template, not a data-driven app.
 
 ### Routing
 
@@ -43,11 +43,12 @@ Every route sets a `title`. Sidebar nav items are a **separate** hardcoded `navI
 
 ### State: RxJS BehaviorSubjects, not signals
 
-All three root services in `src/app/shared/services/` expose `BehaviorSubject`-backed `*$` observables consumed with the `async` pipe:
+All four root services in `src/app/shared/services/` expose `BehaviorSubject`-backed `*$` observables consumed with the `async` pipe:
 
 - `ThemeService` — `light`/`dark`, persisted to `localStorage['theme']`, applied as `.dark` on `<html>` plus a `data-color-scheme` attribute and a `dark:bg-gray-900` class on `<body>`. (AGENTS.md says `data-theme`/`color-scheme`; the code sets `data-color-scheme`.)
 - `SidebarService` — `isExpanded$`, `isMobileOpen$`, `isHovered$`.
 - `ModalService` — `isOpen$` plus a synchronous `isOpen` getter.
+- `LanguageService` — `locale$`, `direction$`, plus synchronous `locale`/`direction`/`currentLanguage` getters. See "i18n" below.
 
 The codebase uses **zero** signals, `input()`/`output()` functions, or `inject()`. Match the existing style: `@Input()`/`@Output()` decorators, constructor injection, `| async` in templates. Derived values are plain getters returning Tailwind class strings (see `ui/button`).
 
@@ -84,12 +85,35 @@ Because `--font-*` and `--breakpoint-*` are reset to `initial`, Tailwind's defau
 
 ### Third-party integrations
 
+- **ngx-translate 18** — `@ngx-translate/core` + `@ngx-translate/http-loader`, the translation layer. See "i18n" below.
 - **TanStack Table 9** — `@tanstack/angular-table`, the primary table implementation. See "Tables" above.
 - **ApexCharts** — via `ng-apexcharts` components, plus `apexcharts.min.js` injected as a global script in `angular.json`.
 - **FullCalendar 7** — `src/app/pages/calender/` builds `CalendarOptions` with the dayGrid/timeGrid/multiMonth/interaction/classic-theme plugins and drives an edit modal.
 - **amCharts 5** — `ecommerce/country-map` renders a world map; chart setup runs inside `NgZone.runOutsideAngular` to keep it out of change detection. Follow that pattern for any new amCharts component.
 - **Flatpickr** (`form/date-picker`, `form/time-picker`), **Swiper** (web components), **Prism.js** (allow-listed as a CommonJS dependency in `angular.json`).
 
-### i18n
+### i18n: ngx-translate v18
 
-Despite the README changelog mentioning i18n, **no translation layer exists** — no `@angular/localize`, no `i18n` attributes, no translate pipe. All copy is English string literals. RTL is the only localization feature: `dir="rtl"` on `<html>`, persisted to `localStorage['dir']`, toggled from the language menu in `header/user-dropdown` and restored in `AppComponent.ngOnInit`. New markup must use logical properties (`ms-*`/`me-*`, `ps-*`/`pe-*`, `start-*`/`end-*`, `text-start`/`text-end`) per AGENTS.md.
+**`@ngx-translate/core` + `@ngx-translate/http-loader` (both v18) are the translation layer.** There is no `@angular/localize` and no `i18n` attributes — translation is runtime, not build-time.
+
+Catalogues are plain JSON in `public/i18n/<locale>.json` — `ar`, `en`, `es`, `de` — served as static assets from `/i18n/` (the `public/` glob in `angular.json` copies them, so no extra asset entry is needed). **All four must stay in key parity**; the fallback language is `ar`, so a key missing from one file silently renders the Arabic string.
+
+`app.config.ts` wires it with `provideTranslateService({ fallbackLang: 'ar', loader: provideTranslateHttpLoader({ prefix: '/i18n/', suffix: '.json' }) })`. Note it deliberately does **not** set `lang` — `LanguageService` owns the active locale so the stored preference is applied in exactly one place.
+
+v18's API differs from the v14/v15 examples most docs show: `provideTranslateService`/`provideTranslateHttpLoader` instead of `TranslateModule.forRoot`, and `setFallbackLang()` instead of the removed `setDefaultLang()`. `TranslatePipe` and `TranslateDirective` are standalone — import `TranslatePipe` into a component's `imports` array, there is no module to pull in.
+
+#### LanguageService
+
+`shared/services/language.service.ts` is the single owner of locale **and** direction, and follows the `ThemeService` pattern: `BehaviorSubject`-backed `locale$`/`direction$`, initialized from its constructor, consumed with getters or the `async` pipe. It is booted by `AppComponent` simply injecting it.
+
+`setLocale(locale)` is the only supported way to switch language: it updates both subjects, calls `translate.use()`, writes `localStorage['locale']`, and sets `dir`/`lang` on `<html>`. Components must not write `localStorage['dir']` or touch `documentElement` themselves — `AppComponent` and `UserDropdownComponent` each used to do this independently and drifted.
+
+Direction is a property of the locale (`languages[].dir`), not a separate toggle. Arabic is the default, so **RTL is the default**; `localStorage['dir']` is still written for backwards compatibility and is still *read* as a fallback when no `locale` key exists yet, but `locale` is the source of truth.
+
+#### What is and isn't translated
+
+Translated: `app-header`, `app-sidebar` (nav labels, section headings, `new`/`pro` badges), `app-sidebar-widget`, `header/user-dropdown`. Sidebar `NavItem.nameKey` holds a **translation key**, not display text.
+
+Not yet translated — these still hold literal strings: every page under `src/app/pages/`, all the feature components under `shared/components/`, and the 20 `title` strings in `app.routes.ts` (translating those needs a custom `TitleStrategy`, since route titles are static values the router writes straight to `document.title`). The brand logo `alt` text is intentionally left as the bilingual lockup name.
+
+New markup must use logical properties (`ms-*`/`me-*`, `ps-*`/`pe-*`, `start-*`/`end-*`, `text-start`/`text-end`) per AGENTS.md.

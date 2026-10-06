@@ -1,0 +1,57 @@
+{
+  "header": {
+    "toggleSidebar": "Seitenleiste umschalten",
+    "applicationMenu": "Anwendungsmenü",
+    "searchPlaceholder": "Suchen oder Befehl eingeben..."
+  },
+  "sidebar": {
+    "sections": {
+      "menu": "Menü",
+      "others": "Weitere"
+    },
+    "badges": {
+      "new": "neu",
+      "pro": "pro"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "ecommerce": "E-Commerce",
+      "calendar": "Kalender",
+      "userProfile": "Benutzerprofil",
+      "forms": "Formulare",
+      "formElements": "Formularelemente",
+      "searchFilter": "Suche & Filter",
+      "tables": "Tabellen",
+      "basicTables": "Einfache Tabellen",
+      "dataTable": "Datentabelle",
+      "pages": "Seiten",
+      "blankPage": "Leere Seite",
+      "error404": "404-Fehler",
+      "charts": "Diagramme",
+      "lineChart": "Liniendiagramm",
+      "barChart": "Balkendiagramm",
+      "uiElements": "UI-Elemente",
+      "alerts": "Hinweise",
+      "avatar": "Avatar",
+      "badge": "Abzeichen",
+      "buttons": "Schaltflächen",
+      "images": "Bilder",
+      "videos": "Videos",
+      "authentication": "Authentifizierung",
+      "signIn": "Anmelden",
+      "signUp": "Registrieren"
+    },
+    "widget": {
+      "title": "Grenzportal",
+      "body": "Eine einheitliche Betriebsplattform für die Verwaltung von Grenzübergängen und Zollverfahren.",
+      "cta": "Betriebsleitfaden"
+    }
+  },
+  "userDropdown": {
+    "editProfile": "Profil bearbeiten",
+    "accountSettings": "Kontoeinstellungen",
+    "support": "Support",
+    "language": "Sprache",
+    "signOut": "Abmelden"
+  }
+}

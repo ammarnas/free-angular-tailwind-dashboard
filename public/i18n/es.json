@@ -1,0 +1,57 @@
+{
+  "header": {
+    "toggleSidebar": "Alternar barra lateral",
+    "applicationMenu": "Menú de la aplicación",
+    "searchPlaceholder": "Busca o escribe un comando..."
+  },
+  "sidebar": {
+    "sections": {
+      "menu": "Menú",
+      "others": "Otros"
+    },
+    "badges": {
+      "new": "nuevo",
+      "pro": "pro"
+    },
+    "nav": {
+      "dashboard": "Panel",
+      "ecommerce": "Comercio electrónico",
+      "calendar": "Calendario",
+      "userProfile": "Perfil de usuario",
+      "forms": "Formularios",
+      "formElements": "Elementos de formulario",
+      "searchFilter": "Búsqueda y filtros",
+      "tables": "Tablas",
+      "basicTables": "Tablas básicas",
+      "dataTable": "Tabla de datos",
+      "pages": "Páginas",
+      "blankPage": "Página en blanco",
+      "error404": "Error 404",
+      "charts": "Gráficos",
+      "lineChart": "Gráfico de líneas",
+      "barChart": "Gráfico de barras",
+      "uiElements": "Elementos de interfaz",
+      "alerts": "Alertas",
+      "avatar": "Avatar",
+      "badge": "Insignia",
+      "buttons": "Botones",
+      "images": "Imágenes",
+      "videos": "Vídeos",
+      "authentication": "Autenticación",
+      "signIn": "Iniciar sesión",
+      "signUp": "Registrarse"
+    },
+    "widget": {
+      "title": "Portal de Fronteras",
+      "body": "Una plataforma operativa unificada para gestionar los pasos fronterizos y los trámites aduaneros.",
+      "cta": "Guía operativa"
+    }
+  },
+  "userDropdown": {
+    "editProfile": "Editar perfil",
+    "accountSettings": "Ajustes de la cuenta",
+    "support": "Soporte",
+    "language": "Idioma",
+    "signOut": "Cerrar sesión"
+  }
+}
